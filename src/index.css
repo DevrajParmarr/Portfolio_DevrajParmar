@@ -205,15 +205,4 @@
     transform: translateY(-10px) scale(1.02);
     box-shadow: var(--shadow-glow);
   }
-
-  /* Extra micro-interactions */
-  .hover-scale { 
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .hover-scale:hover { 
-    transform: scale(1.03);
-  }
-
-  .tilt-on-hover { transition: transform 0.3s ease; will-change: transform; }
-  .tilt-on-hover:hover { transform: rotateX(2deg) rotateY(-2deg) translateY(-6px); }
 }
