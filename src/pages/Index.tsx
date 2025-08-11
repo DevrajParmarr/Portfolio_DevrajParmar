@@ -1,12 +1,26 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Navigation from '@/components/Navigation';
+import Hero from '@/components/Hero';
+import Projects from '@/components/Projects';
+import Skills from '@/components/Skills';
+import Contact from '@/components/Contact';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      <main>
+        <section id="home">
+          <Hero />
+        </section>
+        <Projects />
+        <Skills />
+        <Contact />
+      </main>
+      
+      {/* Scroll to top button and footer can be added here */}
+      <footer className="py-8 text-center text-muted-foreground border-t border-border/50">
+        <p>© 2024 Alex Johnson. Built with passion and lots of coffee ☕</p>
+      </footer>
     </div>
   );
 };
