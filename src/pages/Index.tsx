@@ -19,7 +19,7 @@ const Index = () => {
       
       {/* Scroll to top button and footer can be added here */}
       <footer className="py-8 text-center text-muted-foreground border-t border-border/50">
-        <p>© 2024 Alex Johnson. Built with passion and lots of coffee ☕</p>
+        <p>© 2024 Devraj Parmar. Built with passion and lots of coding ⚡</p>
       </footer>
     </div>
   );

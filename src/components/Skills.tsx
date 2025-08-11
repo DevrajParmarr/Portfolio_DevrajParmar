@@ -28,46 +28,46 @@ const Skills = () => {
       icon: Code2,
       title: 'Programming Languages',
       skills: [
-        { name: 'JavaScript/TypeScript', level: 90 },
-        { name: 'Python', level: 85 },
-        { name: 'Java', level: 80 },
-        { name: 'C++', level: 75 },
+        { name: 'C/C++', level: 90 },
+        { name: 'JavaScript', level: 85 },
+        { name: 'PHP', level: 80 },
+        { name: 'Data Structures & Algorithms', level: 88 },
       ],
     },
     {
       icon: Globe,
       title: 'Web Development',
       skills: [
-        { name: 'React/Next.js', level: 88 },
-        { name: 'Node.js/Express', level: 82 },
+        { name: 'React.js/Next.js', level: 90 },
+        { name: 'Node.js/Express.js', level: 85 },
         { name: 'HTML/CSS', level: 92 },
         { name: 'RESTful APIs', level: 85 },
       ],
     },
     {
       icon: Database,
-      title: 'Databases & Cloud',
+      title: 'Databases & Tools',
       skills: [
-        { name: 'MongoDB', level: 80 },
-        { name: 'PostgreSQL', level: 75 },
-        { name: 'AWS/Firebase', level: 70 },
-        { name: 'Docker', level: 65 },
+        { name: 'MongoDB', level: 85 },
+        { name: 'SQL', level: 80 },
+        { name: 'Git/GitHub', level: 88 },
+        { name: 'VS Code', level: 90 },
       ],
     },
     {
       icon: Brain,
-      title: 'AI/ML & Data Science',
+      title: 'Competitive Programming',
       skills: [
-        { name: 'TensorFlow/PyTorch', level: 75 },
-        { name: 'Data Analysis', level: 80 },
-        { name: 'Machine Learning', level: 70 },
-        { name: 'NLP', level: 65 },
+        { name: 'LeetCode (350+ problems)', level: 85 },
+        { name: 'CodeChef (1500+ rating)', level: 80 },
+        { name: 'GeeksforGeeks', level: 85 },
+        { name: 'Problem Solving', level: 88 },
       ],
     },
   ];
 
   const tools = [
-    'Git', 'VS Code', 'Figma', 'Postman', 'Webpack', 'Jest', 'Linux', 'Jira'
+    'Git', 'VS Code', 'Jupyter Notebook', 'Windows', 'Linux', 'Leaflet.js', 'OpenStreetMap API', 'JWT'
   ];
 
   return (
