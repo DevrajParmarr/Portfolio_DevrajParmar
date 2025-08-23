@@ -8,7 +8,7 @@ const Hero = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
 
-  const words = ['MERN Developer', 'Problem Solver', 'Algorithm Designer' , 'Competitive Programmer', 'Route Optimizer',];
+  const words = ['MERN Developer', 'Problem Solver', 'Competitive Programmer', 'Route Optimizer'];
 
   useEffect(() => {
     const handleTyping = () => {
@@ -60,7 +60,7 @@ const Hero = () => {
         <div className="animate-fade-in-up">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
             Hi, I'm{' '}
-            <span className="gradient-text">DEVRAJ PARMAR</span>
+            <span className="gradient-text">Devraj Parmar</span>
           </h1>
           
           <div className="text-2xl md:text-4xl mb-8 h-16 flex items-center justify-center">
@@ -72,7 +72,7 @@ const Hero = () => {
           
           <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
             UG IV Year Computer Engineering student at SGSITS, Indore. 
-            JEE AIR 40,236 • CodeChef  <STAR>3</STAR>1680+ Rating • 450+ DSA Problems Solved
+            JEE AIR 40,236 • CodeChef 1500+ Rating • 350+ DSA Problems Solved
           </p>
           
           <div className="flex gap-4 justify-center flex-wrap">

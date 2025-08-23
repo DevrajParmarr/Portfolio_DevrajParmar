@@ -16,12 +16,12 @@ const Profile = () => {
             <span className="gradient-text">About Me</span>
           </h2>
           <p className="text-muted-foreground mb-4">
-            Final-year Computer Engineering student at SGSITS, Indore. Passionate about AI/ML, full‑stack development, Algorithm Designer and building tools that help students learn faster.
+            Final-year Computer Engineering student at SGSITS, Indore. Passionate about AI/ML, full‑stack development, and building tools that help students learn faster.
           </p>
           <ul className="text-sm text-muted-foreground grid grid-cols-1 sm:grid-cols-2 gap-2">
             <li>• Competitive Programmer (CodeChef 1500+)</li>
-            <li>• 450+ DSA problems solved</li>
-            <li>• Interested in CV, optimization algorithms , Software Development</li>
+            <li>• 350+ DSA problems solved</li>
+            <li>• Interested in CV, optimization and systems</li>
             <li>• Open to internships and collaborations</li>
           </ul>
         </div>

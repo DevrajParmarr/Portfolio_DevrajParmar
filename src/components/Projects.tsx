@@ -1,16 +1,14 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, Play } from 'lucide-react';
 import { useState } from 'react';
-
-import routeOptimizer from '@/assets/route-optimizer.png';
-import labourChowk from '@/assets/labour-chowk.png';
-import onlineJudge from '@/assets/online-judge.png';
-import missionControl from '@/assets/mission-control.png';
-import aslConverter from '@/assets/asl-converter-hero.png';
-import excelMerger from '@/assets/excel-merger.png';
-import ecommerce from '@/assets/ecommerce.png';
+import aiStudyAssistant from '@/assets/ai-study-assistant.jpg';
+import campusEvents from '@/assets/campus-events.jpg';
+import blockchainVoting from '@/assets/blockchain-voting.jpg';
+import chatApp from '@/assets/chat-app.jpg';
+import aslConverter from '@/assets/asl-converter-hero.jpg';
+import studyCompanion from '@/assets/study-companion-hero.jpg';
 
 const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
@@ -19,78 +17,56 @@ const Projects = () => {
     {
       id: 1,
       title: 'Route Optimizer',
-      description:
-        'A logistics-focused platform that designs the most optimized delivery routes based on constraints like fleet size, capacity, and distance. Visualizes real-world routes on an interactive map with advanced routing algorithms.',
-      image: routeOptimizer,
+      description: 'Full-stack web application solving the Heterogeneous Fleet Vehicle Routing Problem (HFVRP) for 5-100 destinations using 2-50 vehicles. Implements multiple routing algorithms with interactive map interface.',
+      image: aiStudyAssistant,
+      relatedImages: [aiStudyAssistant],
       tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Leaflet.js', 'OpenStreetMap API'],
-      github: 'https://github.com/DevrajParmarr/Major_Project_CSE',
-      demo: 'https://complexrouteoptimizer.netlify.app/',
+      github: 'https://github.com',
+      demo: 'https://demo.com',
       featured: true,
     },
     {
       id: 2,
-      title: 'Digital Labour Chowk',
-      description:
-        'A job-matching platform that connects semi-skilled laborers with clients. Users can post jobs, browse opportunities, and connect securely, enabling easy access to real-time employment options.',
-      image: labourChowk,
-      tech: ['PHP', 'MySQL', 'HTML', 'CSS', 'JavaScript'],
-      github: 'https://github.com/DevrajParmarr/D_Labour_Chowk',
-      demo: '',
-      featured: false,
+      title: 'MERN Stack Online Judge',
+      description: 'Competitive programming platform with secure user authentication using JWT, custom compiler for multiple languages, and responsive frontend with problem listing and filtering.',
+      image: campusEvents,
+      relatedImages: [campusEvents],
+      tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT'],
+      github: 'https://github.com',
+      demo: 'https://demo.com',
+      featured: true,
     },
     {
       id: 3,
-      title: 'Judge Ur Code with AI Review',
-      description:
-        'A coding practice platform inspired by LeetCode. Supports C++ problem-solving, test case execution, and AI-powered feedback to improve code quality and enhance problem-solving skills.',
-      image: onlineJudge,
-      tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'C++ Compiler'],
-      github: 'https://github.com/prakhargupta48/OnlineJudgeMERN',
-      demo: 'online-judge-mern.vercel.app',
-      featured: true,
+      title: 'Digital Labour Chowk',
+      description: 'Platform connecting laborers and clients, facilitating real-time job opportunities. Features user registration, job posting, and application management with secure database handling.',
+      image: blockchainVoting,
+      relatedImages: [blockchainVoting],
+      tech: ['PHP', 'SQL', 'HTML', 'CSS', 'JavaScript'],
+      github: 'https://github.com',
+      demo: 'https://demo.com',
+      featured: false,
     },
     {
       id: 4,
-      title: 'Mission Control – Gamified Habit Tracker',
-      description:
-        'A productivity web app with a space-themed interface. Features gamified task tracking, achievements, daily quizzes, and customizable themes to make discipline and habit-building fun.',
-      image: missionControl,
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      github: 'https://github.com/DevrajParmarr/Mission-Control---A-Gamified-Habit-Tracker',
-      demo: 'https://deciplineyourtasknow.netlify.app/',
-      featured: false,
-    },
-    {
-      id: 5,
-      title: 'American Sign Language Converter',
-      description:
-        'Machine learning-based project that converts American Sign Language (ASL) into text in real time. Uses OpenCV for hand detection and CNN models for classification.',
+      title: 'American Sign Language Converter (Real-time)',
+      description: 'AI/ML project converting ASL from live video to text in real time using OpenCV for hand detection and a CNN classifier. Includes confidence overlay and streaming pipeline.',
       image: aslConverter,
-      tech: ['Python', 'OpenCV', 'TensorFlow/Keras', 'CNN'],
-      github: '',
-      demo: '',
+      relatedImages: [aslConverter],
+      tech: ['Python', 'OpenCV', 'TensorFlow/Keras', 'CNN', 'Real-time Inference'],
+      github: 'https://github.com',
+      demo: 'https://demo.com',
       featured: true,
     },
     {
-      id: 6,
-      title: 'Excel File Merger',
-      description:
-        'A Node.js utility tool for merging multiple Excel files into a single consolidated sheet, simplifying data management workflows.',
-      image: excelMerger,
-      tech: ['Node.js', 'ExcelJS'],
-      github: 'https://github.com/DevrajParmarr/Excel-File-Merger-using-NodeJS',
-      demo: '',
-      featured: false,
-    },
-    {
-      id: 7,
-      title: 'E-Commerce Backend',
-      description:
-        'A backend system for an e-commerce platform built in PHP. Includes product management, user authentication, and order handling features.',
-      image: ecommerce,
-      tech: ['PHP', 'MySQL', 'HTML', 'CSS'],
-      github: 'https://github.com/DevrajParmarr/E_Commerce-Backend-using-php-',
-      demo: '',
+      id: 5,
+      title: 'CSE Study Companion',
+      description: 'Upgraded tool for CSE students: tasks with focus timer (Pomodoro), daily quiz, gamification (XP/levels), and daily insights. Built with a sleek responsive UI.',
+      image: studyCompanion,
+      relatedImages: [studyCompanion],
+      tech: ['React', 'HTML', 'CSS', 'JavaScript'],
+      github: 'https://github.com',
+      demo: 'https://demo.com',
       featured: false,
     },
   ];
@@ -103,8 +79,8 @@ const Projects = () => {
             Featured <span className="gradient-text">Projects</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A showcase of my technical skills and creative problem-solving, built through
-            diverse projects in web development, AI, and machine learning.
+            A showcase of my technical skills and creative problem-solving through 
+            various projects I've built during my computer science journey.
           </p>
         </div>
 
@@ -129,29 +105,23 @@ const Projects = () => {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-
+                
                 {/* Overlay with action buttons */}
-                <div
-                  className={`absolute inset-0 bg-background/90 flex items-center justify-center gap-4 transition-opacity duration-300 ${
-                    hoveredProject === project.id ? 'opacity-100' : 'opacity-0'
-                  }`}
-                >
-                  {project.github && (
-                    <Button size="sm" className="neon-glow" asChild>
-                      <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-4 h-4 mr-2" />
-                        Code
-                      </a>
-                    </Button>
-                  )}
-                  {project.demo && (
-                    <Button size="sm" variant="secondary" asChild>
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Demo
-                      </a>
-                    </Button>
-                  )}
+                <div className={`absolute inset-0 bg-background/90 flex items-center justify-center gap-4 transition-opacity duration-300 ${
+                  hoveredProject === project.id ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  <Button size="sm" className="neon-glow" asChild>
+                    <a href={project.github} target="_blank" rel="noopener noreferrer">
+                      <Github className="w-4 h-4 mr-2" />
+                      Code
+                    </a>
+                  </Button>
+                  <Button size="sm" variant="secondary" asChild>
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Demo
+                    </a>
+                  </Button>
                 </div>
               </div>
 
@@ -160,7 +130,9 @@ const Projects = () => {
                   <CardTitle className="text-xl group-hover:text-primary transition-colors">
                     {project.title}
                   </CardTitle>
-                  {project.featured && <Badge className="neon-glow">Featured</Badge>}
+                  {project.featured && (
+                    <Badge className="neon-glow">Featured</Badge>
+                  )}
                 </div>
                 <CardDescription className="text-muted-foreground">
                   {project.description}
@@ -175,6 +147,24 @@ const Projects = () => {
                     </Badge>
                   ))}
                 </div>
+
+                {/* Related images */}
+                {project.relatedImages?.length ? (
+                  <div className="mt-2">
+                    <p className="text-sm text-muted-foreground mb-2">Related images</p>
+                    <div className="flex gap-3 overflow-x-auto pb-2">
+                      {project.relatedImages.map((img, idx) => (
+                        <img
+                          key={idx}
+                          src={img}
+                          alt={`${project.title} related ${idx + 1}`}
+                          loading="lazy"
+                          className="w-24 h-16 rounded-md object-cover hover-scale"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
               </CardContent>
 
               {/* Glow effect */}
@@ -184,16 +174,9 @@ const Projects = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button
-            variant="outline"
-            size="lg"
-            className="glass-card border-primary/30 hover:border-primary"
-            asChild
-          >
-            <a href="https://github.com/DevrajParmarr" target="_blank" rel="noopener noreferrer">
-              <Github className="w-4 h-4 mr-2" />
-              View All Projects on GitHub
-            </a>
+          <Button variant="outline" size="lg" className="glass-card border-primary/30 hover:border-primary">
+            <Github className="w-4 h-4 mr-2" />
+            View All Projects on GitHub
           </Button>
         </div>
       </div>
