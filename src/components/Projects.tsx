@@ -1,8 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Github, ExternalLink, Play } from 'lucide-react';
-import { useState } from 'react';
+import { Github, ExternalLink, Play, Star, Eye, Calendar, Code2 } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import aiStudyAssistant from '@/assets/ai-study-assistant.jpg';
 import campusEvents from '@/assets/campus-events.jpg';
 import blockchainVoting from '@/assets/blockchain-voting.jpg';
@@ -12,6 +12,30 @@ import studyCompanion from '@/assets/study-companion-hero.jpg';
 
 const Projects = () => {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observers = projectRefs.current.map((ref, index) => {
+      if (!ref) return null;
+      
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setVisibleProjects(prev => [...prev, index]);
+          }
+        },
+        { threshold: 0.1 }
+      );
+      
+      observer.observe(ref);
+      return observer;
+    });
+
+    return () => {
+      observers.forEach(observer => observer?.disconnect());
+    };
+  }, []);
 
   const projects = [
     {
@@ -24,6 +48,9 @@ const Projects = () => {
       github: 'https://github.com',
       demo: 'https://demo.com',
       featured: true,
+      status: 'Completed',
+      year: '2025',
+      category: 'Full Stack'
     },
     {
       id: 2,
@@ -35,6 +62,9 @@ const Projects = () => {
       github: 'https://github.com',
       demo: 'https://demo.com',
       featured: true,
+      status: 'In Progress',
+      year: '2024',
+      category: 'Backend'
     },
     {
       id: 3,
@@ -46,6 +76,9 @@ const Projects = () => {
       github: 'https://github.com',
       demo: 'https://demo.com',
       featured: false,
+      status: 'Completed',
+      year: '2024',
+      category: 'Web Development'
     },
     {
       id: 4,
@@ -57,6 +90,9 @@ const Projects = () => {
       github: 'https://github.com',
       demo: 'https://demo.com',
       featured: true,
+      status: 'Completed',
+      year: '2024',
+      category: 'AI/ML'
     },
     {
       id: 5,
@@ -68,6 +104,9 @@ const Projects = () => {
       github: 'https://github.com',
       demo: 'https://demo.com',
       featured: false,
+      status: 'Completed',
+      year: '2024',
+      category: 'Frontend'
     },
   ];
 
@@ -75,74 +114,128 @@ const Projects = () => {
     <section id="projects" className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Featured <span className="gradient-text">Projects</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6 animate-bounce-in">
+            <Code2 className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium">My Work</span>
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-reveal">
+            <span>Featured</span> <span className="gradient-text animate-text-glow">Projects</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto animate-slide-in-right" style={{ animationDelay: '0.2s' }}>
             A showcase of my technical skills and creative problem-solving through 
             various projects I've built during my computer science journey.
           </p>
+          
+          <div className="flex justify-center gap-4 mt-8 animate-slide-up-fade" style={{ animationDelay: '0.4s' }}>
+            {['All', 'Full Stack', 'AI/ML', 'Frontend', 'Backend'].map((category, index) => (
+              <Badge 
+                key={category}
+                className="glass-card hover-scale cursor-pointer transition-all duration-300"
+                style={{ '--stagger-delay': index } as any}
+              >
+                {category}
+              </Badge>
+            ))}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <Card
               key={project.id}
-              className={`project-card glass-card group relative overflow-hidden animate-fade-in-up hover-scale ${
+              ref={el => projectRefs.current[index] = el}
+              className={`project-card glass-card group relative overflow-hidden tilt-on-hover ${
                 project.featured ? 'md:col-span-2 lg:col-span-1' : ''
-              }`}
+              } ${visibleProjects.includes(index) ? 'animate-card-entry' : 'opacity-0'}`}
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
               style={{
-                animationDelay: `${index * 0.1}s`,
-              }}
+                animationDelay: `${index * 0.15}s`,
+                '--stagger-delay': index
+              } as any}
             >
               <div className="relative h-48 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                
+                {/* Status badge */}
+                <div className="absolute top-4 left-4 z-20">
+                  <Badge className={`glass-card animate-bounce-in ${
+                    project.status === 'Completed' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'
+                  }`}>
+                    {project.status}
+                  </Badge>
+                </div>
+                
+                {/* Year badge */}
+                <div className="absolute top-4 right-4 z-20">
+                  <Badge className="glass-card animate-bounce-in" style={{ animationDelay: '0.1s' }}>
+                    <Calendar className="w-3 h-3 mr-1" />
+                    {project.year}
+                  </Badge>
+                </div>
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
                 
                 {/* Overlay with action buttons */}
-                <div className={`absolute inset-0 bg-background/90 flex items-center justify-center gap-4 transition-opacity duration-300 ${
-                  hoveredProject === project.id ? 'opacity-100' : 'opacity-0'
+                <div className={`absolute inset-0 bg-background/95 backdrop-blur-sm flex items-center justify-center gap-4 transition-all duration-500 ${
+                  hoveredProject === project.id ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
                 }`}>
-                  <Button size="sm" className="neon-glow" asChild>
+                  <Button size="sm" className="neon-glow btn-advanced animate-bounce-in" asChild>
                     <a href={project.github} target="_blank" rel="noopener noreferrer">
                       <Github className="w-4 h-4 mr-2" />
                       Code
                     </a>
                   </Button>
-                  <Button size="sm" variant="secondary" asChild>
+                  <Button size="sm" variant="secondary" className="glass-card btn-advanced animate-bounce-in" style={{ animationDelay: '0.1s' }} asChild>
                     <a href={project.demo} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="w-4 h-4 mr-2" />
                       Demo
                     </a>
                   </Button>
+                  <Button size="sm" variant="ghost" className="glass-card animate-bounce-in" style={{ animationDelay: '0.2s' }}>
+                    <Eye className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
 
               <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                    {project.title}
-                  </CardTitle>
+                <div className="flex items-center justify-between mb-2">
+                  <Badge className="glass-card text-xs animate-slide-in-right">
+                    {project.category}
+                  </Badge>
                   {project.featured && (
-                    <Badge className="neon-glow">Featured</Badge>
+                    <Badge className="neon-glow animate-glow">
+                      <Star className="w-3 h-3 mr-1" />
+                      Featured
+                    </Badge>
                   )}
                 </div>
-                <CardDescription className="text-muted-foreground">
+                
+                <CardTitle className="text-xl group-hover:text-primary transition-all duration-300 animate-text-glow">
+                  {project.title}
+                </CardTitle>
+                
+                <CardDescription className="text-muted-foreground animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
                   {project.description}
                 </CardDescription>
               </CardHeader>
 
               <CardContent>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech) => (
-                    <Badge key={tech} variant="secondary" className="glass-card">
+                <div className="flex flex-wrap gap-2 mb-4 stagger-animation">
+                  {project.tech.map((tech, techIndex) => (
+                    <Badge 
+                      key={tech} 
+                      variant="secondary" 
+                      className="glass-card hover-scale animate-slide-up-fade"
+                      style={{ '--stagger-delay': techIndex } as any}
+                    >
                       {tech}
                     </Badge>
                   ))}
@@ -150,34 +243,54 @@ const Projects = () => {
 
                 {/* Related images */}
                 {project.relatedImages?.length ? (
-                  <div className="mt-2">
-                    <p className="text-sm text-muted-foreground mb-2">Related images</p>
-                    <div className="flex gap-3 overflow-x-auto pb-2">
+                  <div className="mt-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                      <p className="text-sm text-muted-foreground font-medium">Project Gallery</p>
+                    </div>
+                    <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
                       {project.relatedImages.map((img, idx) => (
-                        <img
+                        <div
                           key={idx}
-                          src={img}
-                          alt={`${project.title} related ${idx + 1}`}
-                          loading="lazy"
-                          className="w-24 h-16 rounded-md object-cover hover-scale"
-                        />
+                          className="relative group flex-shrink-0 animate-slide-in-right"
+                          style={{ animationDelay: `${idx * 0.1}s` }}
+                        >
+                          <img
+                            src={img}
+                            alt={`${project.title} gallery ${idx + 1}`}
+                            loading="lazy"
+                            className="w-24 h-16 rounded-md object-cover hover-scale glass-card border border-primary/20 group-hover:border-primary/50 transition-all duration-300"
+                          />
+                          <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md" />
+                        </div>
                       ))}
                     </div>
                   </div>
                 ) : null}
               </CardContent>
 
-              {/* Glow effect */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-accent/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+              {/* Enhanced glow effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 via-accent/20 to-primary/30 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-all duration-700 animate-glow -z-10" />
+              
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
             </Card>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Button variant="outline" size="lg" className="glass-card border-primary/30 hover:border-primary">
-            <Github className="w-4 h-4 mr-2" />
-            View All Projects on GitHub
-          </Button>
+        <div className="text-center mt-16 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+          <div className="inline-flex flex-col items-center gap-4">
+            <p className="text-sm text-muted-foreground">Want to see more?</p>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="glass-card border-primary/30 hover:border-primary btn-advanced group animate-bounce-in"
+            >
+              <Github className="w-4 h-4 mr-2 group-hover:animate-spin" />
+              View All Projects on GitHub
+              <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </Button>
+          </div>
         </div>
       </div>
     </section>
