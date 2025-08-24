@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CS Portfolio Design System - Dark theme with vibrant accents */
+/* Ultimate Motion Portfolio Design System - Neon Glass Futuristic */
 
 @layer base {
   :root {
@@ -34,29 +34,70 @@
     --input: 220 27% 12%;
     --ring: 193 100% 50%;
 
-    /* Custom portfolio colors */
+    /* Advanced Neon Glass Colors */
     --neon-cyan: 193 100% 50%;
     --neon-purple: 271 91% 65%;
     --neon-pink: 320 91% 65%;
+    --neon-green: 142 76% 60%;
+    --neon-orange: 25 95% 53%;
     --glass-bg: 220 27% 8%;
     --glass-border: 220 27% 15%;
+    --glass-strong: 220 27% 12%;
     
-    /* Advanced Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(193 100% 50%) 0%, hsl(271 91% 65%) 100%);
-    --gradient-secondary: linear-gradient(45deg, hsl(271 91% 65%) 0%, hsl(320 91% 65%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(220 27% 6% / 0.95) 0%, hsl(220 27% 8% / 0.95) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(220 27% 4%) 0%, hsl(220 27% 6%) 50%, hsl(220 27% 4%) 100%);
-    --gradient-symmetric: linear-gradient(90deg, hsl(193 100% 50% / 0.1) 0%, transparent 50%, hsl(271 91% 65% / 0.1) 100%);
-    --gradient-mirror: linear-gradient(180deg, hsl(220 27% 4%) 0%, hsl(193 100% 50% / 0.05) 50%, hsl(220 27% 4%) 100%);
+    /* Physics-Based Motion System */
+    --motion-spring-gentle: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --motion-spring-bouncy: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --motion-spring-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --motion-spring-precise: cubic-bezier(0.4, 0, 0.2, 1);
+    --motion-spring-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     
-    /* Professional Shadows */
-    --shadow-neon: 0 0 20px hsl(193 100% 50% / 0.4);
-    --shadow-glow: 0 0 40px hsl(271 91% 65% / 0.3);
-    --shadow-card: 0 16px 64px hsl(220 27% 2% / 0.4);
-    --shadow-symmetric: 0 8px 32px hsl(193 100% 50% / 0.15), 0 -8px 32px hsl(271 91% 65% / 0.15);
-    --shadow-professional: 0 20px 80px hsl(220 27% 2% / 0.5);
+    /* Motion Timing Tokens */
+    --motion-instant: 100ms;
+    --motion-quick: 200ms;
+    --motion-smooth: 300ms;
+    --motion-gentle: 500ms;
+    --motion-slow: 700ms;
+    --motion-dramatic: 1000ms;
     
-    /* Spacing system */
+    /* Advanced Gradients with Depth */
+    --gradient-primary: linear-gradient(135deg, hsl(193 100% 50%) 0%, hsl(271 91% 65%) 50%, hsl(320 91% 65%) 100%);
+    --gradient-secondary: linear-gradient(45deg, hsl(271 91% 65%) 0%, hsl(320 91% 65%) 50%, hsl(25 95% 53%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(220 27% 6% / 0.95) 0%, hsl(220 27% 8% / 0.90) 50%, hsl(220 27% 10% / 0.95) 100%);
+    --gradient-hero: 
+      radial-gradient(ellipse at top, hsl(193 100% 50% / 0.1) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom right, hsl(271 91% 65% / 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom left, hsl(320 91% 65% / 0.06) 0%, transparent 40%),
+      linear-gradient(135deg, hsl(220 27% 4%) 0%, hsl(220 27% 6%) 50%, hsl(220 27% 4%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsl(220 27% 8% / 0.8) 0%, hsl(220 27% 12% / 0.6) 100%);
+    --gradient-glow: linear-gradient(135deg, hsl(193 100% 50% / 0.2) 0%, hsl(271 91% 65% / 0.15) 100%);
+    
+    /* Multi-Layer Shadows */
+    --shadow-glass: 
+      0 8px 32px hsl(220 27% 2% / 0.4),
+      0 1px 0 hsl(220 27% 15% / 0.8),
+      inset 0 1px 0 hsl(220 27% 20% / 0.9);
+    --shadow-neon: 
+      0 0 20px hsl(193 100% 50% / 0.6),
+      0 0 40px hsl(193 100% 50% / 0.4),
+      0 0 80px hsl(193 100% 50% / 0.2);
+    --shadow-glow: 
+      0 0 30px hsl(271 91% 65% / 0.5),
+      0 0 60px hsl(271 91% 65% / 0.3),
+      0 0 120px hsl(271 91% 65% / 0.1);
+    --shadow-hover: 
+      0 20px 40px hsl(220 27% 2% / 0.5),
+      0 0 30px hsl(193 100% 50% / 0.3);
+    --shadow-3d: 
+      0 25px 50px hsl(220 27% 2% / 0.6),
+      0 0 40px hsl(271 91% 65% / 0.4),
+      inset 0 1px 0 hsl(220 27% 25% / 0.8);
+    
+    /* Advanced Blur Effects */
+    --blur-glass: blur(20px);
+    --blur-heavy: blur(40px);
+    --blur-subtle: blur(8px);
+    
+    /* Spacing & Layout */
     --section-spacing: 8rem;
     --element-spacing: 2rem;
 
@@ -130,13 +171,17 @@
 }
 
 @layer components {
+  /* Advanced Glass Morphism System */
   .glass-card {
-    background: var(--gradient-card);
-    backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--glass-border));
-    box-shadow: var(--shadow-card);
+    background: var(--gradient-glass);
+    backdrop-filter: var(--blur-glass);
+    -webkit-backdrop-filter: var(--blur-glass);
+    border: 1px solid hsl(220 27% 15% / 0.5);
+    box-shadow: var(--shadow-glass);
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
+    transition: all var(--motion-smooth) var(--motion-spring-elastic);
   }
   
   .glass-card::before {
@@ -146,12 +191,41 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), transparent);
-    transition: left 0.8s ease;
+    background: linear-gradient(90deg, transparent, hsl(193 100% 50% / 0.15), hsl(271 91% 65% / 0.1), transparent);
+    transition: left var(--motion-gentle) var(--motion-spring-smooth);
   }
   
   .glass-card:hover::before {
     left: 100%;
+  }
+  
+  .glass-card:hover {
+    transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
+    box-shadow: var(--shadow-3d);
+    border-color: hsl(193 100% 50% / 0.3);
+  }
+  
+  /* Ultra Glass Effect */
+  .glass-ultra {
+    background: linear-gradient(135deg, 
+      hsl(220 27% 8% / 0.95) 0%, 
+      hsl(220 27% 12% / 0.8) 30%,
+      hsl(220 27% 10% / 0.9) 70%,
+      hsl(220 27% 8% / 0.95) 100%
+    );
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid;
+    border-image: linear-gradient(135deg, 
+      hsl(193 100% 50% / 0.3),
+      hsl(271 91% 65% / 0.2),
+      hsl(320 91% 65% / 0.3)
+    ) 1;
+    box-shadow: 
+      0 8px 32px hsl(220 27% 2% / 0.5),
+      0 0 40px hsl(193 100% 50% / 0.1),
+      inset 0 1px 0 hsl(220 27% 25% / 0.8),
+      inset 0 -1px 0 hsl(220 27% 5% / 0.8);
   }
   
   .neon-glow {
@@ -345,11 +419,14 @@
     animation: slideUpFade 0.6s ease-out;
   }
   
+  /* Ultimate Project Card with 3D Physics */
   .project-card {
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transform-origin: center;
-    perspective: 1000px;
+    transition: all var(--motion-smooth) var(--motion-spring-elastic);
+    transform-origin: center center;
+    perspective: 1200px;
+    transform-style: preserve-3d;
     position: relative;
+    will-change: transform;
   }
   
   .project-card::before {
@@ -359,23 +436,49 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.1));
+    background: var(--gradient-glow);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: all var(--motion-smooth) var(--motion-spring-gentle);
     border-radius: inherit;
     z-index: -1;
+    filter: blur(10px);
   }
   
   .project-card:hover::before {
     opacity: 1;
+    transform: scale(1.1);
   }
   
   .project-card:hover {
-    transform: translateY(-20px) rotateX(5deg) rotateY(5deg) scale(1.05);
-    box-shadow: 
-      0 25px 50px hsl(var(--primary) / 0.3),
-      0 0 0 1px hsl(var(--primary) / 0.2),
-      inset 0 1px 0 hsl(var(--foreground) / 0.1);
+    transform: 
+      translateY(-25px) 
+      rotateX(8deg) 
+      rotateY(-8deg) 
+      scale(1.08);
+    box-shadow: var(--shadow-3d);
+  }
+  
+  .project-card:active {
+    transform: 
+      translateY(-20px) 
+      rotateX(6deg) 
+      rotateY(-6deg) 
+      scale(1.05);
+    transition: all var(--motion-quick) var(--motion-spring-bouncy);
+  }
+  
+  /* Magnetic Hover Effect */
+  .project-card-magnetic {
+    transition: all var(--motion-smooth) var(--motion-spring-elastic);
+  }
+  
+  .project-card-content {
+    transform-style: preserve-3d;
+    transition: all var(--motion-smooth) var(--motion-spring-elastic);
+  }
+  
+  .project-card:hover .project-card-content {
+    transform: translateZ(20px) rotateX(-2deg);
   }
 
   .hover-scale { 
@@ -533,6 +636,43 @@
     height: 300px;
   }
   
+  /* Advanced Magnetic & Tilt Effects */
+  .magnetic-effect {
+    transition: all var(--motion-smooth) var(--motion-spring-elastic);
+    transform-style: preserve-3d;
+    cursor: none;
+    position: relative;
+  }
+  
+  .magnetic-effect::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    transition: all var(--motion-quick) var(--motion-spring-bouncy);
+    box-shadow: var(--shadow-neon);
+  }
+  
+  .magnetic-effect:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  /* Ultra Smooth Tilt */
+  .tilt-3d {
+    transition: all var(--motion-smooth) var(--motion-spring-gentle);
+    transform-style: preserve-3d;
+  }
+  
+  .tilt-3d:hover {
+    transform: perspective(1000px) rotateX(5deg) rotateY(10deg) translateZ(50px);
+  }
+  
   /* Scrollbar customization */
   .scrollbar-hide {
     -ms-overflow-style: none;
@@ -543,26 +683,100 @@
     display: none;
   }
   
-  /* Mouse cursor effect */
-  .magnetic-effect {
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  
-  .magnetic-effect:hover {
-    cursor: pointer;
-  }
-  
   /* Loading animation */
   .loading-dots::after {
     content: '';
     animation: dots 1.5s infinite;
   }
   
-  @keyframes dots {
-    0%, 20% { content: ''; }
-    40% { content: '.'; }
-    60% { content: '..'; }
-    80%, 100% { content: '...'; }
+  /* Advanced 3D Keyframes & Physics */
+  @keyframes ultraFloat {
+    0%, 100% { 
+      transform: translateY(0px) rotateZ(0deg) scale(1);
+      filter: hue-rotate(0deg);
+    }
+    25% { 
+      transform: translateY(-15px) rotateZ(1deg) scale(1.02);
+      filter: hue-rotate(90deg);
+    }
+    50% { 
+      transform: translateY(-8px) rotateZ(-0.5deg) scale(0.98);
+      filter: hue-rotate(180deg);
+    }
+    75% { 
+      transform: translateY(-12px) rotateZ(0.8deg) scale(1.01);
+      filter: hue-rotate(270deg);
+    }
+  }
+  
+  @keyframes morphPulse {
+    0%, 100% { 
+      border-radius: 1rem;
+      transform: scale(1) rotate(0deg);
+      box-shadow: var(--shadow-glass);
+    }
+    25% { 
+      border-radius: 2rem 0.5rem;
+      transform: scale(1.02) rotate(0.5deg);
+      box-shadow: var(--shadow-neon);
+    }
+    50% { 
+      border-radius: 0.5rem 2rem;
+      transform: scale(0.98) rotate(-0.3deg);
+      box-shadow: var(--shadow-glow);
+    }
+    75% { 
+      border-radius: 1.5rem 1rem;
+      transform: scale(1.01) rotate(0.2deg);
+      box-shadow: var(--shadow-3d);
+    }
+  }
+  
+  @keyframes liquidMotion {
+    0%, 100% { clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 0% 100%); }
+    25% { clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 5% 85%); }
+    50% { clip-path: polygon(0% 15%, 100% 0%, 100% 100%, 0% 85%); }
+    75% { clip-path: polygon(5% 0%, 95% 15%, 100% 100%, 0% 100%); }
+  }
+  
+  @keyframes holographicShift {
+    0%, 100% { 
+      background: var(--gradient-primary);
+      filter: hue-rotate(0deg) saturate(100%);
+    }
+    20% { 
+      background: var(--gradient-secondary);
+      filter: hue-rotate(60deg) saturate(120%);
+    }
+    40% { 
+      background: linear-gradient(135deg, hsl(142 76% 60%) 0%, hsl(193 100% 50%) 100%);
+      filter: hue-rotate(120deg) saturate(140%);
+    }
+    60% { 
+      background: linear-gradient(135deg, hsl(25 95% 53%) 0%, hsl(271 91% 65%) 100%);
+      filter: hue-rotate(180deg) saturate(110%);
+    }
+    80% { 
+      background: var(--gradient-glow);
+      filter: hue-rotate(240deg) saturate(130%);
+    }
+  }
+  
+  /* Ultra Animation Classes */
+  .animate-ultra-float {
+    animation: ultraFloat 6s ease-in-out infinite;
+  }
+  
+  .animate-morph-pulse {
+    animation: morphPulse 4s ease-in-out infinite;
+  }
+  
+  .animate-liquid-motion {
+    animation: liquidMotion 8s ease-in-out infinite;
+  }
+  
+  .animate-holographic-shift {
+    animation: holographicShift 5s linear infinite;
   }
   
   /* Professional Resume Enhancements */

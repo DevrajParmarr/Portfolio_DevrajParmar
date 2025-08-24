@@ -1,16 +1,16 @@
 import { Button } from '@/components/ui/button';
-import { ArrowDown, Download, Github, Linkedin, Mail, Sparkles } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { ArrowDown, Download, Github, Linkedin, Mail, Sparkles, Zap, Star } from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
+import { MotionSystem } from '@/utils/motionSystem';
 const Hero = () => {
-  const [mousePosition, setMousePosition] = useState({
-    x: 0,
-    y: 0
-  });
+  const heroRef = useRef<HTMLElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const words = ['MERN Developer', 'Problem Solver', 'Competitive Programmer', 'Route Optimizer'];
   useEffect(() => {
     setIsLoaded(true);
@@ -54,9 +54,28 @@ const Hero = () => {
     }} />);
   };
   return <section className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
-      {/* Enhanced Particles */}
-      <div className="particles">
-        {createParticles()}
+      {/* Ultra Dynamic Background */}
+      <div className="fixed inset-0 z-[-2]">
+        <div className="absolute inset-0 bg-[var(--gradient-hero)]" />
+        <div className="absolute inset-0 animate-liquid-motion bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
+        <div className="absolute inset-0 animate-holographic-shift opacity-20" />
+        
+        {/* Enhanced Particle System */}
+        <div className="particles-enhanced absolute inset-0">
+          {/* Dynamic particles */}
+          {Array.from({ length: 50 }, (_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-primary/60 rounded-full animate-ultra-float"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 10}s`,
+                animationDuration: `${8 + Math.random() * 6}s`
+              }}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Symmetric Dynamic Background */}
