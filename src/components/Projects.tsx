@@ -1,8 +1,8 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState, useEffect, useRef } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Github, ExternalLink, Play, Star, Eye, Calendar, Code2 } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { Github, ExternalLink, Code2, Sparkles } from 'lucide-react';
+import Advanced3DCard from './Advanced3DCard';
 import aiStudyAssistant from '@/assets/ai-study-assistant.jpg';
 import campusEvents from '@/assets/campus-events.jpg';
 import blockchainVoting from '@/assets/blockchain-voting.jpg';
@@ -111,29 +111,47 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 px-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6 animate-bounce-in">
-            <Code2 className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium">My Work</span>
-          </div>
+    <section id="projects" className="py-24 px-4 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 right-1/6 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-ultraFloat" />
+        <div className="absolute bottom-1/4 left-1/6 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-liquidMotion" />
+        <div className="absolute top-1/2 left-1/2 w-48 h-48 holographic rounded-lg opacity-20 animate-morphPulse" />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center mb-20">
+          <Badge className="glass-ultra mb-6 px-6 py-3 text-sm font-medium animate-bounceIn">
+            <Sparkles className="w-4 h-4 mr-2 animate-spin" />
+            Featured Work
+          </Badge>
           
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-reveal">
-            <span>Featured</span> <span className="gradient-text animate-text-glow">Projects</span>
+          <h2 className="text-5xl md:text-6xl font-black mb-6 animate-textReveal">
+            <span className="gradient-text">Revolutionary</span>{' '}
+            <span 
+              className="holographic inline-block"
+              style={{
+                background: 'var(--gradient-holographic)',
+                backgroundSize: '200% 200%',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              Projects
+            </span>
           </h2>
           
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto animate-slide-in-right" style={{ animationDelay: '0.2s' }}>
-            A showcase of my technical skills and creative problem-solving through 
-            various projects I've built during my computer science journey.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fadeInUp" style={{ animationDelay: '300ms' }}>
+            A showcase of my technical expertise and creative problem-solving through
+            <span className="text-primary font-semibold"> innovative projects</span> that push the boundaries of web development.
           </p>
           
-          <div className="flex justify-center gap-4 mt-8 animate-slide-up-fade" style={{ animationDelay: '0.4s' }}>
+          <div className="flex justify-center flex-wrap gap-4 mt-10 animate-slideUpStagger" style={{ animationDelay: '500ms' }}>
             {['All', 'Full Stack', 'AI/ML', 'Frontend', 'Backend'].map((category, index) => (
               <Badge 
                 key={category}
-                className="glass-card hover-scale cursor-pointer transition-all duration-300"
-                style={{ '--stagger-delay': index } as any}
+                className="glass-depth hover:glass-ultra cursor-pointer transition-all duration-300 px-4 py-2 hover:scale-105 magnetic-btn"
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 {category}
               </Badge>
@@ -141,154 +159,34 @@ const Projects = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Revolutionary 3D Project Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {projects.map((project, index) => (
-            <Card
+            <Advanced3DCard
               key={project.id}
-              ref={el => projectRefs.current[index] = el}
-              className={`project-card glass-card group relative overflow-hidden tilt-on-hover ${
-                project.featured ? 'md:col-span-2 lg:col-span-1' : ''
-              } ${visibleProjects.includes(index) ? 'animate-card-entry' : 'opacity-0'}`}
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
-              style={{
-                animationDelay: `${index * 0.15}s`,
-                '--stagger-delay': index
-              } as any}
-            >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
-                />
-                
-                {/* Status badge */}
-                <div className="absolute top-4 left-4 z-20">
-                  <Badge className={`glass-card animate-bounce-in ${
-                    project.status === 'Completed' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'
-                  }`}>
-                    {project.status}
-                  </Badge>
-                </div>
-                
-                {/* Year badge */}
-                <div className="absolute top-4 right-4 z-20">
-                  <Badge className="glass-card animate-bounce-in" style={{ animationDelay: '0.1s' }}>
-                    <Calendar className="w-3 h-3 mr-1" />
-                    {project.year}
-                  </Badge>
-                </div>
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-                
-                {/* Overlay with action buttons */}
-                <div className={`absolute inset-0 bg-background/95 backdrop-blur-sm flex items-center justify-center gap-4 transition-all duration-500 ${
-                  hoveredProject === project.id ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-                }`}>
-                  <Button size="sm" className="neon-glow btn-advanced animate-bounce-in" asChild>
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      <Github className="w-4 h-4 mr-2" />
-                      Code
-                    </a>
-                  </Button>
-                  <Button size="sm" variant="secondary" className="glass-card btn-advanced animate-bounce-in" style={{ animationDelay: '0.1s' }} asChild>
-                    <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Demo
-                    </a>
-                  </Button>
-                  <Button size="sm" variant="ghost" className="glass-card animate-bounce-in" style={{ animationDelay: '0.2s' }}>
-                    <Eye className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-
-              <CardHeader>
-                <div className="flex items-center justify-between mb-2">
-                  <Badge className="glass-card text-xs animate-slide-in-right">
-                    {project.category}
-                  </Badge>
-                  {project.featured && (
-                    <Badge className="neon-glow animate-glow">
-                      <Star className="w-3 h-3 mr-1" />
-                      Featured
-                    </Badge>
-                  )}
-                </div>
-                
-                <CardTitle className="text-xl group-hover:text-primary transition-all duration-300 animate-text-glow">
-                  {project.title}
-                </CardTitle>
-                
-                <CardDescription className="text-muted-foreground animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-                  {project.description}
-                </CardDescription>
-              </CardHeader>
-
-              <CardContent>
-                <div className="flex flex-wrap gap-2 mb-4 stagger-animation">
-                  {project.tech.map((tech, techIndex) => (
-                    <Badge 
-                      key={tech} 
-                      variant="secondary" 
-                      className="glass-card hover-scale animate-slide-up-fade"
-                      style={{ '--stagger-delay': techIndex } as any}
-                    >
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-
-                {/* Related images */}
-                {project.relatedImages?.length ? (
-                  <div className="mt-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                      <p className="text-sm text-muted-foreground font-medium">Project Gallery</p>
-                    </div>
-                    <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-                      {project.relatedImages.map((img, idx) => (
-                        <div
-                          key={idx}
-                          className="relative group flex-shrink-0 animate-slide-in-right"
-                          style={{ animationDelay: `${idx * 0.1}s` }}
-                        >
-                          <img
-                            src={img}
-                            alt={`${project.title} gallery ${idx + 1}`}
-                            loading="lazy"
-                            className="w-24 h-16 rounded-md object-cover hover-scale glass-card border border-primary/20 group-hover:border-primary/50 transition-all duration-300"
-                          />
-                          <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-              </CardContent>
-
-              {/* Enhanced glow effect */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 via-accent/20 to-primary/30 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-all duration-700 animate-glow -z-10" />
-              
-              {/* Shimmer effect */}
-              <div className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
-            </Card>
+              project={project}
+              index={index}
+              isVisible={visibleProjects.includes(index)}
+              onHover={setHoveredProject}
+              isHovered={hoveredProject === project.id}
+            />
           ))}
         </div>
 
-        <div className="text-center mt-16 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-          <div className="inline-flex flex-col items-center gap-4">
-            <p className="text-sm text-muted-foreground">Want to see more?</p>
+        {/* Call to Action */}
+        <div className="text-center mt-20 animate-slideInUp" style={{ animationDelay: '800ms' }}>
+          <div className="glass-ultra p-8 rounded-2xl max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold mb-4">Ready to Explore More?</h3>
+            <p className="text-muted-foreground mb-6">
+              Discover the complete collection of my projects and contributions on GitHub.
+            </p>
             <Button 
-              variant="outline" 
               size="lg" 
-              className="glass-card border-primary/30 hover:border-primary btn-advanced group animate-bounce-in"
+              className="advanced-btn neon-glow magnetic-btn px-8 py-4 text-lg font-semibold group"
             >
-              <Github className="w-4 h-4 mr-2 group-hover:animate-spin" />
-              View All Projects on GitHub
-              <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <Github className="w-5 h-5 mr-3 group-hover:animate-spin" />
+              View All Projects
+              <ExternalLink className="w-5 h-5 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Button>
           </div>
         </div>
