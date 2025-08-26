@@ -167,6 +167,16 @@
   body {
     @apply bg-background text-foreground;
     overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  /* Reduce motion for better performance */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -762,21 +772,30 @@
     }
   }
   
-  /* Ultra Animation Classes */
+  /* Performance Optimizations */
   .animate-ultra-float {
-    animation: ultraFloat 6s ease-in-out infinite;
+    animation: ultraFloat 8s ease-in-out infinite;
+    will-change: transform, filter;
   }
   
   .animate-morph-pulse {
-    animation: morphPulse 4s ease-in-out infinite;
+    animation: morphPulse 6s ease-in-out infinite;
+    will-change: transform, border-radius, box-shadow;
   }
   
   .animate-liquid-motion {
-    animation: liquidMotion 8s ease-in-out infinite;
+    animation: liquidMotion 10s ease-in-out infinite;
+    will-change: clip-path;
   }
   
   .animate-holographic-shift {
-    animation: holographicShift 5s linear infinite;
+    animation: holographicShift 8s linear infinite;
+    will-change: background, filter;
+  }
+  
+  .animate-gradient {
+    animation: gradientShift 4s ease-in-out infinite;
+    will-change: background-position;
   }
   
   /* Professional Resume Enhancements */

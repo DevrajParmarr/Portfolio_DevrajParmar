@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Github, ExternalLink, Code2, Sparkles } from 'lucide-react';
-import Advanced3DCard from './Advanced3DCard';
+import OptimizedProjectCard from './OptimizedProjectCard';
 import aiStudyAssistant from '@/assets/ai-study-assistant.jpg';
 import campusEvents from '@/assets/campus-events.jpg';
 import blockchainVoting from '@/assets/blockchain-voting.jpg';
@@ -112,11 +112,10 @@ const Projects = () => {
 
   return (
     <section id="projects" className="py-24 px-4 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 right-1/6 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-ultraFloat" />
-        <div className="absolute bottom-1/4 left-1/6 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-liquidMotion" />
-        <div className="absolute top-1/2 left-1/2 w-48 h-48 holographic rounded-lg opacity-20 animate-morphPulse" />
+      {/* Optimized Background Effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 right-1/6 w-64 h-64 bg-primary/5 rounded-full blur-2xl animate-ultra-float" />
+        <div className="absolute bottom-1/4 left-1/6 w-48 h-48 bg-accent/5 rounded-full blur-2xl animate-liquid-motion" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -159,16 +158,14 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* Revolutionary 3D Project Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        {/* Optimized Creative Project Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <Advanced3DCard
+            <OptimizedProjectCard
               key={project.id}
               project={project}
               index={index}
               isVisible={visibleProjects.includes(index)}
-              onHover={setHoveredProject}
-              isHovered={hoveredProject === project.id}
             />
           ))}
         </div>
