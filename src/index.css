@@ -170,7 +170,18 @@
     scroll-behavior: smooth;
   }
 
-  /* Reduce motion for better performance */
+  /* Optimized performance settings */
+  * {
+    will-change: auto;
+  }
+  
+  /* Use GPU acceleration only where needed */
+  .gpu-accelerated {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  /* Reduce motion for accessibility and better performance */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;

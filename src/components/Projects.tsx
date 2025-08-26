@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Github, ExternalLink, Code2, Sparkles } from 'lucide-react';
-import OptimizedProjectCard from './OptimizedProjectCard';
+import FastProjectCard from './FastProjectCard';
 import aiStudyAssistant from '@/assets/ai-study-assistant.jpg';
 import campusEvents from '@/assets/campus-events.jpg';
 import blockchainVoting from '@/assets/blockchain-voting.jpg';
@@ -158,10 +158,10 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* Optimized Creative Project Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+        {/* Fast Project Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <OptimizedProjectCard
+            <FastProjectCard
               key={project.id}
               project={project}
               index={index}

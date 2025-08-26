@@ -19,27 +19,10 @@ const RevolutionaryHero: React.FC = () => {
     "Full-Stack Excellence"
   ];
 
-  // Initialize advanced effects
+  // Initialize effects
   useEffect(() => {
-    setIsLoaded(true);
-    
-    if (heroRef.current) {
-      // Create particle system
-      particleEngineRef.current = new AdvancedMotionEngine();
-      particleEngineRef.current.createParticleSystem(heroRef.current, 80);
-      
-      // Add magnetic effects to interactive elements
-      const buttons = heroRef.current.querySelectorAll('.magnetic-btn');
-      buttons.forEach(btn => {
-        AdvancedMotionEngine.add3DMagneticEffect(btn as HTMLElement, 0.2);
-      });
-    }
-
-    return () => {
-      if (particleEngineRef.current) {
-        particleEngineRef.current.destroy();
-      }
-    };
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
   // Mouse tracking for advanced backgrounds
@@ -94,29 +77,23 @@ const RevolutionaryHero: React.FC = () => {
         `
       }}
     >
-      {/* Ultra Advanced Background Layers */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Floating Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-ultraFloat" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-ultraFloat" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-ultraFloat" style={{ animationDelay: '4s' }} />
+      {/* Optimized Background Layers */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Simple Floating Orbs */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-2xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-accent/5 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }} />
         
-        {/* Grid Pattern */}
+        {/* Subtle Grid Pattern */}
         <div 
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-5"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+              linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
             `,
-            backgroundSize: '50px 50px',
-            transform: `translate(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.1}px)`
+            backgroundSize: '40px 40px'
           }}
         />
-        
-        {/* Holographic Elements */}
-        <div className="absolute top-20 right-20 w-32 h-32 holographic rounded-lg opacity-20 animate-morphPulse" />
-        <div className="absolute bottom-20 left-20 w-24 h-24 holographic rounded-full opacity-30 animate-liquidMotion" />
       </div>
       
       {/* Main Content */}

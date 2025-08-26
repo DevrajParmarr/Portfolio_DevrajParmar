@@ -32,13 +32,13 @@ const Profile = () => {
   ];
 
   return (
-    <section className="px-4 py-16 relative">
+    <section id="about" className="px-4 py-16 relative">
       <div 
         ref={containerRef}
-        className={`max-w-6xl mx-auto relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        className={`max-w-6xl mx-auto relative transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       >
-        {/* Fixed Background Elements - No cursor interference */}
-        <div className="absolute -inset-4 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 rounded-2xl blur-xl" />
+        {/* Static Background Elements */}
+        <div className="absolute -inset-4 bg-gradient-to-r from-primary/3 via-accent/3 to-primary/3 rounded-2xl blur-xl" />
         
         <div className="relative glass-ultra p-8 rounded-2xl border border-primary/20">
           <div className="grid grid-cols-1 lg:grid-cols-[auto,1fr] gap-8 items-center">
