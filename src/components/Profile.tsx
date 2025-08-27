@@ -35,19 +35,17 @@ const Profile = () => {
     <section id="about" className="px-4 py-16 relative">
       <div 
         ref={containerRef}
-        className={`max-w-6xl mx-auto relative transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        className={`max-w-6xl mx-auto relative transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
       >
-        {/* Static Background Elements */}
-        <div className="absolute -inset-4 bg-gradient-to-r from-primary/3 via-accent/3 to-primary/3 rounded-2xl blur-xl" />
+        {/* Subtle Background */}
+        <div className="absolute -inset-4 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 rounded-2xl" />
         
-        <div className="relative glass-ultra p-8 rounded-2xl border border-primary/20">
+        <div className="relative bg-card/50 backdrop-blur-sm p-8 rounded-2xl border border-border">
           <div className="grid grid-cols-1 lg:grid-cols-[auto,1fr] gap-8 items-center">
             
             {/* Avatar Section */}
             <div className="relative mx-auto lg:mx-0 group">
-              <div className="absolute -inset-2 bg-gradient-to-r from-primary/30 via-accent/20 to-primary/30 rounded-full blur-lg opacity-70 animate-pulse" />
-              
-              <Avatar className="w-40 h-40 ring-4 ring-primary/30 relative transition-all duration-500 group-hover:ring-primary/50 group-hover:scale-105">
+              <Avatar className="w-40 h-40 ring-2 ring-primary/20 relative transition-all duration-300 group-hover:ring-primary/40">
                 <AvatarImage 
                   src="/lovable-uploads/c882c21f-79e8-474e-af59-e43da507196e.png" 
                   alt="Profile headshot photo" 
@@ -59,7 +57,7 @@ const Profile = () => {
               </Avatar>
               
               <div className="absolute -bottom-2 -right-2">
-                <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-400/30 animate-bounce">
+                <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-400/30">
                   <Zap className="w-3 h-3 mr-1" />
                   Available
                 </Badge>
@@ -69,7 +67,7 @@ const Profile = () => {
             {/* Content Section */}
             <div className="space-y-6">
               <div>
-                <h2 className="text-4xl font-bold mb-3 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient">
+                <h2 className="text-4xl font-bold mb-3 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                   About Me
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
@@ -85,8 +83,8 @@ const Profile = () => {
                   return (
                     <div
                       key={index}
-                      className={`group flex items-center gap-3 p-3 rounded-lg glass-card hover:glass-ultra transition-all duration-300 hover:scale-105 transform ${isVisible ? 'animate-slide-in-right' : ''}`}
-                      style={{ animationDelay: `${achievement.delay}ms` }}
+                      className={`group flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-all duration-200 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+                      style={{ transitionDelay: `${achievement.delay}ms` }}
                     >
                       <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
                         <Icon className="w-4 h-4 text-primary" />
@@ -105,8 +103,8 @@ const Profile = () => {
                   <Badge 
                     key={skill}
                     variant="secondary"
-                    className={`glass-card hover:glass-ultra transition-all duration-300 hover:scale-105 ${isVisible ? 'animate-bounce-in' : ''}`}
-                    style={{ animationDelay: `${500 + index * 50}ms` }}
+                    className={`transition-all duration-200 hover:bg-primary hover:text-primary-foreground ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+                    style={{ transitionDelay: `${200 + index * 50}ms` }}
                   >
                     {skill}
                   </Badge>

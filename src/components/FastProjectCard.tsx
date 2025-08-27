@@ -31,7 +31,7 @@ const FastProjectCard: React.FC<FastProjectCardProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     
     const rect = cardRef.current.getBoundingClientRect();
@@ -54,32 +54,30 @@ const FastProjectCard: React.FC<FastProjectCardProps> = ({
     <Card
       ref={cardRef}
       className={`
-        group relative overflow-hidden cursor-pointer gpu-accelerated
-        bg-gradient-to-br from-card/80 via-card/90 to-card/80
-        backdrop-blur-sm border border-border/50
+        group relative overflow-hidden cursor-pointer
+        bg-card/50 backdrop-blur-sm border border-border/50
         transition-all duration-300 ease-out
-        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+        ${isVisible ? 'opacity-100' : 'opacity-0'}
         ${project.featured ? 'ring-1 ring-primary/20' : ''}
-        hover:border-primary/40 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1
+        hover:border-primary/40 hover:shadow-lg hover:-translate-y-1
       `}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
-        animationDelay: `${index * 50}ms`,
+        transitionDelay: `${index * 50}ms`,
       }}
     >
       {/* Cursor-Following Glow */}
       <div
         className={`
-          absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-lg
+          absolute inset-0 pointer-events-none transition-opacity duration-200 rounded-lg
           ${isHovered ? 'opacity-100' : 'opacity-0'}
         `}
         style={{
-          background: `radial-gradient(circle 150px at ${mousePosition.x}% ${mousePosition.y}%, 
-            hsl(var(--primary) / 0.15) 0%, 
-            hsl(var(--accent) / 0.08) 50%, 
-            transparent 70%)`
+          background: `radial-gradient(circle 120px at ${mousePosition.x}% ${mousePosition.y}%, 
+            hsl(var(--primary) / 0.1) 0%, 
+            transparent 60%)`
         }}
       />
 
@@ -88,7 +86,7 @@ const FastProjectCard: React.FC<FastProjectCardProps> = ({
         <img
           src={project.image}
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
         />
         
