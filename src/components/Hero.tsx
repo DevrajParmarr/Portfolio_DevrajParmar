@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Download, Github, Linkedin, Mail } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import AnimatedBackground from './AnimatedBackground';
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -46,9 +47,18 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 py-20 relative">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20" />
+    <section className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
+      {/* Animated Background */}
+      <AnimatedBackground />
+      
+      {/* Dynamic Background Layers */}
+      <div className="absolute inset-0 animated-bg opacity-20" />
+      <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-transparent to-background/60" />
+      
+      {/* Floating Elements */}
+      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-full blur-xl animate-pulse-glow" />
+      <div className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-full blur-2xl animate-float" />
+      <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-full blur-lg animate-pulse-glow" style={{ animationDelay: '1s' }} />
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <div className={`transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -61,10 +71,16 @@ const Hero = () => {
           </div>
           
           {/* Main Title */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight relative">
             <div className="flex flex-col items-center gap-2">
-              <span>Hi, I'm</span>
-              <span className="gradient-text">Devraj Parmar</span>
+              <span className="relative">
+                Hi, I'm
+                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-blue-600/20 blur rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+              </span>
+              <span className="gradient-text relative">
+                Devraj Parmar
+                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full animate-shimmer" />
+              </span>
             </div>
           </h1>
           
@@ -85,14 +101,15 @@ const Hero = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 relative">
           <Button 
             size="lg" 
-            className="group btn-hover shadow-lg" 
+            className="group btn-hover shadow-lg relative overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 border-0" 
             onClick={scrollToProjects}
           >
-            <ArrowDown className="w-5 h-5 mr-2 group-hover:animate-bounce" />
-            Explore My Work
+            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity animate-shimmer" />
+            <ArrowDown className="w-5 h-5 mr-2 group-hover:animate-bounce relative z-10" />
+            <span className="relative z-10">Explore My Work</span>
           </Button>
           
           <div className="flex gap-3">

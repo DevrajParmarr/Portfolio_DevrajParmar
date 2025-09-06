@@ -6,11 +6,14 @@ import Experience from '@/components/Experience';
 import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
 import Contact from '@/components/Contact';
+import MouseGlow from '@/components/MouseGlow';
 const Index = () => {
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Simple Background */}
+    <div className="min-h-screen bg-background relative">
+      <MouseGlow />
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 z-[-1] animated-bg opacity-10" />
       <div className="fixed inset-0 z-[-1] bg-gradient-to-br from-background via-background to-primary/5" />
       
       {/* Glass Navigation */}
