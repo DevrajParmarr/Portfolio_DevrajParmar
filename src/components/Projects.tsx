@@ -11,8 +11,8 @@ import aslConverter from '@/assets/asl-converter-hero.jpg';
 import studyCompanion from '@/assets/study-companion-hero.jpg';
 
 const Projects = () => {
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -43,7 +43,6 @@ const Projects = () => {
       title: 'Route Optimizer',
       description: 'Full-stack web application solving the Heterogeneous Fleet Vehicle Routing Problem (HFVRP) for 5-100 destinations using 2-50 vehicles. Implements multiple routing algorithms with interactive map interface.',
       image: aiStudyAssistant,
-      relatedImages: [aiStudyAssistant],
       tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Leaflet.js', 'OpenStreetMap API'],
       github: 'https://github.com',
       demo: 'https://demo.com',
@@ -57,7 +56,6 @@ const Projects = () => {
       title: 'MERN Stack Online Judge',
       description: 'Competitive programming platform with secure user authentication using JWT, custom compiler for multiple languages, and responsive frontend with problem listing and filtering.',
       image: campusEvents,
-      relatedImages: [campusEvents],
       tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT'],
       github: 'https://github.com',
       demo: 'https://demo.com',
@@ -71,7 +69,6 @@ const Projects = () => {
       title: 'Digital Labour Chowk',
       description: 'Platform connecting laborers and clients, facilitating real-time job opportunities. Features user registration, job posting, and application management with secure database handling.',
       image: blockchainVoting,
-      relatedImages: [blockchainVoting],
       tech: ['PHP', 'SQL', 'HTML', 'CSS', 'JavaScript'],
       github: 'https://github.com',
       demo: 'https://demo.com',
@@ -82,11 +79,10 @@ const Projects = () => {
     },
     {
       id: 4,
-      title: 'American Sign Language Converter (Real-time)',
+      title: 'American Sign Language Converter',
       description: 'AI/ML project converting ASL from live video to text in real time using OpenCV for hand detection and a CNN classifier. Includes confidence overlay and streaming pipeline.',
       image: aslConverter,
-      relatedImages: [aslConverter],
-      tech: ['Python', 'OpenCV', 'TensorFlow/Keras', 'CNN', 'Real-time Inference'],
+      tech: ['Python', 'OpenCV', 'TensorFlow/Keras', 'CNN'],
       github: 'https://github.com',
       demo: 'https://demo.com',
       featured: true,
@@ -99,7 +95,6 @@ const Projects = () => {
       title: 'CSE Study Companion',
       description: 'Upgraded tool for CSE students: tasks with focus timer (Pomodoro), daily quiz, gamification (XP/levels), and daily insights. Built with a sleek responsive UI.',
       image: studyCompanion,
-      relatedImages: [studyCompanion],
       tech: ['React', 'HTML', 'CSS', 'JavaScript'],
       github: 'https://github.com',
       demo: 'https://demo.com',
@@ -110,80 +105,73 @@ const Projects = () => {
     },
   ];
 
-  return (
-    <section id="projects" className="py-24 px-4 relative overflow-hidden">
-      {/* Optimized Background Effects */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-1/6 w-64 h-64 bg-primary/5 rounded-full blur-2xl animate-ultra-float" />
-        <div className="absolute bottom-1/4 left-1/6 w-48 h-48 bg-accent/5 rounded-full blur-2xl animate-liquid-motion" />
-      </div>
+  const categories = ['All', 'Full Stack', 'AI/ML', 'Frontend', 'Backend', 'Web Development'];
+  
+  const filteredProjects = selectedCategory === 'All' 
+    ? projects 
+    : projects.filter(project => project.category === selectedCategory);
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-20">
-          <Badge className="glass-ultra mb-6 px-6 py-3 text-sm font-medium animate-bounceIn">
-            <Sparkles className="w-4 h-4 mr-2 animate-spin" />
+  return (
+    <section id="projects" className="py-20 px-4 relative">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <Badge className="mb-6 px-4 py-2">
+            <Sparkles className="w-4 h-4 mr-2" />
             Featured Work
           </Badge>
           
-          <h2 className="text-5xl md:text-6xl font-black mb-6 animate-textReveal">
-            <span className="gradient-text">Revolutionary</span>{' '}
-            <span 
-              className="holographic inline-block"
-              style={{
-                background: 'var(--gradient-holographic)',
-                backgroundSize: '200% 200%',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
-              }}
-            >
-              Projects
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="gradient-text">My Projects</span>
           </h2>
           
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fadeInUp" style={{ animationDelay: '300ms' }}>
-            A showcase of my technical expertise and creative problem-solving through
-            <span className="text-primary font-semibold"> innovative projects</span> that push the boundaries of web development.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+            A showcase of my technical expertise through innovative projects that solve real-world problems.
           </p>
           
-          <div className="flex justify-center flex-wrap gap-4 mt-10 animate-slideUpStagger" style={{ animationDelay: '500ms' }}>
-            {['All', 'Full Stack', 'AI/ML', 'Frontend', 'Backend'].map((category, index) => (
-              <Badge 
+          {/* Category Filter */}
+          <div className="flex justify-center flex-wrap gap-2 mb-12">
+            {categories.map((category) => (
+              <Button
                 key={category}
-                className="glass-depth hover:glass-ultra cursor-pointer transition-all duration-300 px-4 py-2 hover:scale-105 magnetic-btn"
-                style={{ animationDelay: `${index * 50}ms` }}
+                variant={selectedCategory === category ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedCategory(category)}
+                className="transition-all duration-200"
               >
                 {category}
-              </Badge>
+              </Button>
             ))}
           </div>
         </div>
 
-        {/* Fast Project Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <FastProjectCard
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-16">
+          {filteredProjects.map((project, index) => (
+            <div
               key={project.id}
-              project={project}
-              index={index}
-              isVisible={visibleProjects.includes(index)}
-            />
+              ref={el => projectRefs.current[index] = el}
+            >
+              <FastProjectCard
+                project={project}
+                index={index}
+                isVisible={visibleProjects.includes(index)}
+              />
+            </div>
           ))}
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-20 animate-slideInUp" style={{ animationDelay: '800ms' }}>
-          <div className="glass-ultra p-8 rounded-2xl max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">Ready to Explore More?</h3>
+        <div className="text-center">
+          <div className="glass-card p-8 rounded-2xl max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold mb-4">Want to See More?</h3>
             <p className="text-muted-foreground mb-6">
-              Discover the complete collection of my projects and contributions on GitHub.
+              Explore my complete collection of projects and contributions on GitHub.
             </p>
-            <Button 
-              size="lg" 
-              className="advanced-btn neon-glow magnetic-btn px-8 py-4 text-lg font-semibold group"
-            >
-              <Github className="w-5 h-5 mr-3 group-hover:animate-spin" />
+            <Button size="lg" className="group">
+              <Github className="w-5 h-5 mr-3" />
               View All Projects
-              <ExternalLink className="w-5 h-5 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <ExternalLink className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>
