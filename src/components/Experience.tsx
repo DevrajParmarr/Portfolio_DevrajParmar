@@ -42,6 +42,34 @@ const Experience = () => {
       skills: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Python', 'Sentiment Analysis', 'REST APIs']
     },
     {
+      title: 'Oracle Certified Professional',
+      company: 'Oracle Corporation',
+      period: '2024 - Present',
+      location: 'Global Certification',
+      type: 'Certification',
+      achievements: [
+        'Achieved 3-star rating in Oracle Race of Certification Programme',
+        'Oracle Cloud Infrastructure (OCI) AI Foundations - Foundations Associate',
+        'Oracle Cloud Infrastructure (OCI) Generative AI - Professional Level',
+        'Oracle Cloud Infrastructure (OCI) Foundations - Certified Associate'
+      ],
+      skills: ['Oracle Cloud', 'AI/ML Foundations', 'Generative AI', 'Cloud Computing', 'OCI Services']
+    },
+    {
+      title: 'Full Stack Web Developer',
+      company: 'AcmeGrade Academy',
+      period: '2024',
+      location: 'Professional Certification',
+      type: 'Certification',
+      achievements: [
+        'Completed comprehensive Web Development certification program',
+        'Mastered modern frontend and backend development practices',
+        'Gained expertise in industry-standard development workflows',
+        'Demonstrated proficiency in full-stack application development'
+      ],
+      skills: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Node.js', 'Database Management', 'API Development']
+    },
+    {
       title: 'Academic Projects Lead',
       company: 'SGSITS, Indore',
       period: 'Jan 2024 - Present',
@@ -145,6 +173,7 @@ const Experience = () => {
                           exp.type === 'Academic' ? 'bg-blue-500/20 text-blue-400' :
                           exp.type === 'Achievement' ? 'bg-green-500/20 text-green-400' :
                           exp.type === 'Internship' ? 'bg-orange-500/20 text-orange-400' :
+                          exp.type === 'Certification' ? 'bg-yellow-500/20 text-yellow-400' :
                           'bg-purple-500/20 text-purple-400'
                         }`}>
                           {exp.type}
