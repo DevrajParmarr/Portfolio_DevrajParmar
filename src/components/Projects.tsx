@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Github, ExternalLink, Code2, Sparkles } from 'lucide-react';
-import FastProjectCard from './FastProjectCard';
+import EnhancedProjectCard from './EnhancedProjectCard';
 import aiStudyAssistant from '@/assets/ai-study-assistant.jpg';
 import campusEvents from '@/assets/campus-events.jpg';
 import blockchainVoting from '@/assets/blockchain-voting.jpg';
@@ -146,13 +146,13 @@ const Projects = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
           {filteredProjects.map((project, index) => (
             <div
               key={project.id}
               ref={el => projectRefs.current[index] = el}
             >
-              <FastProjectCard
+              <EnhancedProjectCard
                 project={project}
                 index={index}
                 isVisible={visibleProjects.includes(index)}
