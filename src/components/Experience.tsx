@@ -28,6 +28,20 @@ const Experience = () => {
 
   const experiences = [
     {
+      title: 'MERN Stack Developer',
+      company: 'Umbrella Ltd',
+      period: 'Recent Internship',
+      location: 'Indore, MP',
+      type: 'Internship',
+      achievements: [
+        'Developed Stock Market Predictor using sentiment analysis of market buzz and news',
+        'Implemented real-time data processing for market sentiment tracking',
+        'Built responsive frontend with React and integrated backend APIs',
+        'Utilized machine learning algorithms for predictive analytics'
+      ],
+      skills: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Python', 'Sentiment Analysis', 'REST APIs']
+    },
+    {
       title: 'Academic Projects Lead',
       company: 'SGSITS, Indore',
       period: 'Jan 2024 - Present',
@@ -130,6 +144,7 @@ const Experience = () => {
                         <Badge className={`glass-card animate-bounce-in ${
                           exp.type === 'Academic' ? 'bg-blue-500/20 text-blue-400' :
                           exp.type === 'Achievement' ? 'bg-green-500/20 text-green-400' :
+                          exp.type === 'Internship' ? 'bg-orange-500/20 text-orange-400' :
                           'bg-purple-500/20 text-purple-400'
                         }`}>
                           {exp.type}
