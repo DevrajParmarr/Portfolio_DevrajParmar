@@ -48,12 +48,13 @@ const Experience = () => {
       location: 'Global Certification',
       type: 'Certification',
       achievements: [
-        'Achieved 3-star rating in Oracle Race of Certification Programme',
+        'Achieved 3 level in Oracle Race of Certification Programme',
         'Oracle Cloud Infrastructure (OCI) AI Foundations - Foundations Associate',
         'Oracle Cloud Infrastructure (OCI) Generative AI - Professional Level',
+        'Oracle Cloud Infrastructure (OCI) Data Science - Certified Professional',
         'Oracle Cloud Infrastructure (OCI) Foundations - Certified Associate'
       ],
-      skills: ['Oracle Cloud', 'AI/ML Foundations', 'Generative AI', 'Cloud Computing', 'OCI Services']
+      skills: ['Oracle Cloud', 'AI/ML Foundations', 'Generative AI', 'Data Science', 'Cloud Computing', 'OCI Services']
     },
     {
       title: 'Full Stack Web Developer',
