@@ -39,13 +39,13 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
     
-    // Calculate tilt
-    const tiltX = ((e.clientY - rect.top) / rect.height - 0.5) * -20;
-    const tiltY = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+    // Subtle tilt effect
+    const tiltX = ((e.clientY - rect.top) / rect.height - 0.5) * -8;
+    const tiltY = ((e.clientX - rect.left) / rect.width - 0.5) * 8;
     
     setMousePosition({ x, y });
     setTiltStyle({
-      transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(20px)`,
+      transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(8px)`,
     });
   }, []);
 
@@ -61,29 +61,18 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
     });
   }, []);
 
-  useEffect(() => {
-    if (isHovered && cardRef.current) {
-      // Add particle burst effect
-      cardRef.current.classList.add('particle-burst');
-      const timer = setTimeout(() => {
-        cardRef.current?.classList.remove('particle-burst');
-      }, 800);
-      return () => clearTimeout(timer);
-    }
-  }, [isHovered]);
 
   return (
     <div className="project-card-3d">
       <Card
         ref={cardRef}
         className={`
-          project-card-inner glow-effect magnetic-card
           group relative overflow-hidden cursor-pointer
-          bg-card/80 backdrop-blur-lg border border-border/50
-          transition-all duration-500 ease-out
+          bg-card/95 backdrop-blur-sm border border-border/40
+          transition-all duration-300 ease-out
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-          ${project.featured ? 'ring-2 ring-primary/30 shadow-2xl shadow-primary/20' : ''}
-          hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/25
+          ${project.featured ? 'ring-1 ring-primary/20 shadow-lg shadow-primary/10' : ''}
+          hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10
         `}
         style={{
           transitionDelay: `${index * 100}ms`,
@@ -93,47 +82,45 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Animated Background Gradient */}
+        {/* Subtle Background Gradient */}
         <div
           className={`
-            absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500
-            bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10
+            absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300
+            bg-gradient-to-br from-primary/5 via-accent/3 to-secondary/5
           `}
         />
 
-        {/* Cursor-Following Glow */}
+        {/* Cursor-Following Subtle Glow */}
         <div
           className={`
             absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-lg
             ${isHovered ? 'opacity-100' : 'opacity-0'}
           `}
           style={{
-            background: `radial-gradient(circle 150px at ${mousePosition.x}% ${mousePosition.y}%, 
-              hsl(var(--primary) / 0.15) 0%, 
-              hsl(var(--accent) / 0.05) 50%,
-              transparent 80%)`
+            background: `radial-gradient(circle 120px at ${mousePosition.x}% ${mousePosition.y}%, 
+              hsl(var(--primary) / 0.08) 0%, 
+              transparent 70%)`
           }}
         />
 
-        {/* Shimmer Effect */}
-        <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-primary/20 to-transparent group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+        {/* Subtle Shimmer Effect */}
+        <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-primary/10 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-out" />
 
-        {/* Image Section */}
         <div className="relative h-52 overflow-hidden">
           <img
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
+            className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
             loading="lazy"
           />
           
-          {/* Floating Status Badge */}
-          <div className="absolute top-4 left-4 animate-float">
+          {/* Status Badge */}
+          <div className="absolute top-4 left-4">
             <Badge 
-              className={`backdrop-blur-md border-0 shadow-lg ${
+              className={`backdrop-blur-sm border-0 shadow-sm ${
                 project.status === 'Completed' 
-                  ? 'bg-emerald-500/90 text-white shadow-emerald-500/50' 
-                  : 'bg-amber-500/90 text-white shadow-amber-500/50'
+                  ? 'bg-emerald-500/80 text-white' 
+                  : 'bg-amber-500/80 text-white'
               }`}
             >
               <Zap className="w-3 h-3 mr-1" />
@@ -143,7 +130,7 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
           
           {/* Year Badge */}
           <div className="absolute top-4 right-4">
-            <Badge className="backdrop-blur-md bg-background/90 border-border/50 shadow-lg">
+            <Badge className="backdrop-blur-sm bg-background/80 border-border/30 shadow-sm">
               <Calendar className="w-3 h-3 mr-1" />
               {project.year}
             </Badge>
@@ -152,26 +139,21 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
           {/* Featured Indicator */}
           {project.featured && (
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <div className="relative animate-pulse-glow">
-                <Star className="w-12 h-12 text-yellow-400 fill-current filter drop-shadow-lg" />
-                <div className="absolute inset-0 animate-ping">
-                  <Star className="w-12 h-12 text-yellow-400/50 fill-current" />
-                </div>
-              </div>
+              <Star className="w-8 h-8 text-yellow-400 fill-current opacity-80" />
             </div>
           )}
           
           {/* Interactive Overlay */}
           <div className={`
-            absolute inset-0 bg-gradient-to-t from-background/95 via-background/50 to-transparent
+            absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent
             flex items-end justify-center pb-6 gap-3
             transition-all duration-300 ease-out
-            ${isHovered ? 'opacity-100 backdrop-blur-sm' : 'opacity-0'}
+            ${isHovered ? 'opacity-100' : 'opacity-0'}
           `}>
             <Button 
               size="sm" 
               variant="secondary"
-              className="shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+              className="shadow-sm hover:shadow-md transition-all duration-200"
               asChild
             >
               <a href={project.github} target="_blank" rel="noopener noreferrer">
@@ -182,12 +164,12 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
             
             <Button 
               size="sm" 
-              className="shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+              className="shadow-sm hover:shadow-md transition-all duration-200"
               asChild
             >
               <a href={project.demo} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-4 h-4 mr-2" />
-                Live Demo
+                Demo
               </a>
             </Button>
           </div>
@@ -208,7 +190,7 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
             )}
           </div>
           
-          <CardTitle className="text-xl font-bold group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+          <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors duration-300">
             {project.title}
           </CardTitle>
         </CardHeader>
@@ -224,14 +206,13 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
               <Badge 
                 key={tech} 
                 variant="secondary" 
-                className="text-xs backdrop-blur-sm bg-secondary/70 hover:bg-secondary transition-all duration-200 hover:scale-105 shadow-sm"
-                style={{ animationDelay: `${techIndex * 100}ms` }}
+                className="text-xs bg-secondary/60 hover:bg-secondary transition-colors duration-200"
               >
                 {tech}
               </Badge>
             ))}
             {project.tech.length > 4 && (
-              <Badge variant="outline" className="text-xs hover:bg-primary/10 transition-colors">
+              <Badge variant="outline" className="text-xs hover:bg-primary/5 transition-colors">
                 +{project.tech.length - 4} more
               </Badge>
             )}
@@ -241,15 +222,15 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
           <Button 
             variant="ghost" 
             size="sm" 
-            className="w-full group-hover:bg-primary/10 group-hover:text-primary transition-all duration-300 font-medium"
+            className="w-full group-hover:bg-primary/5 group-hover:text-primary transition-all duration-300"
           >
-            Explore Project
+            View Details
             <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
           </Button>
         </CardContent>
 
-        {/* Enhanced border glow */}
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/30 via-accent/20 to-primary/30 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm" />
+        {/* Subtle border highlight */}
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
       </Card>
     </div>
   );
