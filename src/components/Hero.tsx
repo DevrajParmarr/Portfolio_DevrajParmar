@@ -1,17 +1,20 @@
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Download, Github, Linkedin, Mail } from 'lucide-react';
 import { useEffect, useState, memo } from 'react';
-import OptimizedParticleSystem from './OptimizedParticleSystem';
-import { useOptimizedAnimation } from '@/hooks/useOptimizedAnimation';
+import AnimatedBackground from './AnimatedBackground';
 
 const Hero = memo(() => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
   
-  const { elementRef, isVisible } = useOptimizedAnimation({ threshold: 0.3 });
   const words = ['MERN Developer', 'Problem Solver', 'Competitive Programmer', 'Route Optimizer'];
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   useEffect(() => {
     const handleTyping = () => {
@@ -44,9 +47,9 @@ const Hero = memo(() => {
   };
 
   return (
-    <section ref={elementRef} className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
-      {/* Optimized Background */}
-      <OptimizedParticleSystem particleCount={25} speed={0.8} />
+    <section className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
+      {/* Animated Background */}
+      <AnimatedBackground />
       
       {/* Dynamic Background Layers */}
       <div className="absolute inset-0 animated-bg opacity-10" />
@@ -57,7 +60,7 @@ const Hero = memo(() => {
       <div className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-r from-accent/5 to-primary/5 rounded-full blur-2xl animate-float" />
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
-        <div className={`transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Welcome Badge */}
           <div className="mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 border border-border/50 backdrop-blur-sm">
@@ -71,11 +74,11 @@ const Hero = memo(() => {
             <div className="flex flex-col items-center gap-2">
               <span className="relative">
                 Hi, I'm
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-blue-600/20 blur rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 blur rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
               </span>
               <span className="gradient-text relative">
                 Devraj Parmar
-                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full animate-shimmer" />
+                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full animate-shimmer" />
               </span>
             </div>
           </h1>
@@ -100,7 +103,7 @@ const Hero = memo(() => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 relative">
           <Button 
             size="lg" 
-            className="group btn-hover shadow-lg relative overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 border-0" 
+            className="group btn-enhanced shadow-lg relative overflow-hidden bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 border-0" 
             onClick={scrollToProjects}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity animate-shimmer" />
@@ -112,15 +115,22 @@ const Hero = memo(() => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="btn-hover"
+              className="btn-enhanced"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <Mail className="w-5 h-5 mr-2" />
               Contact
             </Button>
-            <Button variant="outline" size="lg" className="btn-hover">
-              <Download className="w-5 h-5 mr-2" />
-              Resume
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="btn-enhanced"
+              asChild
+            >
+              <a href="/resume.pdf" download>
+                <Download className="w-5 h-5 mr-2" />
+                Resume
+              </a>
             </Button>
           </div>
         </div>

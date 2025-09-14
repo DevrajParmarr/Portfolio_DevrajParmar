@@ -1,22 +1,21 @@
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ThemeToggle from './ThemeToggle';
-import { useThrottledScroll } from '@/hooks/usePerformanceOptimization';
 
-const Navigation = memo(() => {
+const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleScroll = useThrottledScroll(() => {
-    setIsScrolled(window.scrollY > 50);
-  }, 16);
-
   useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+  }, []);
 
   const navItems = [
     { name: 'Home', href: '#home' },
@@ -109,8 +108,6 @@ const Navigation = memo(() => {
       </div>
     </nav>
   );
-});
-
-Navigation.displayName = 'Navigation';
+};
 
 export default Navigation;
