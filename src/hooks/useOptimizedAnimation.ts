@@ -77,7 +77,7 @@ export const useParallax = (speed: number = 0.5) => {
 };
 
 export const useMouseTracker = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 50, y: 50 });
   const elementRef = useRef<HTMLElement>(null);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -91,18 +91,22 @@ export const useMouseTracker = () => {
     setPosition({ x, y });
   }, []);
 
+  const handleMouseLeave = useCallback(() => {
+    setPosition({ x: 50, y: 50 });
+  }, []);
+
   useEffect(() => {
     const element = elementRef.current;
     if (!element) return;
 
     element.addEventListener('mousemove', handleMouseMove);
-    element.addEventListener('mouseleave', () => setPosition({ x: 50, y: 50 }));
+    element.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       element.removeEventListener('mousemove', handleMouseMove);
-      element.removeEventListener('mouseleave', () => setPosition({ x: 50, y: 50 }));
+      element.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [handleMouseMove]);
+  }, [handleMouseMove, handleMouseLeave]);
 
   return { elementRef, position };
 };

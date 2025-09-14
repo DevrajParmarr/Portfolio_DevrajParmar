@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -40,12 +40,19 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = memo(({
     transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
   };
 
+  // Combined ref callback to handle both hooks
+  const handleRef = useCallback((el: HTMLDivElement | null) => {
+    if (mouseRef.current !== el) {
+      mouseRef.current = el as HTMLElement;
+    }
+    if (animationRef.current !== el) {
+      animationRef.current = el as HTMLElement;
+    }
+  }, [mouseRef, animationRef]);
+
   return (
     <div 
-      ref={(el) => {
-        if (mouseRef) mouseRef.current = el as HTMLElement;
-        if (animationRef) animationRef.current = el as HTMLElement;
-      }}
+      ref={handleRef}
       className="project-card-enhanced gpu-accelerated"
     >
       <Card
