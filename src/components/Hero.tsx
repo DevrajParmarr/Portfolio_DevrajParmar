@@ -1,20 +1,17 @@
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Download, Github, Linkedin, Mail } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import AnimatedBackground from './AnimatedBackground';
+import { useEffect, useState, memo } from 'react';
+import OptimizedParticleSystem from './OptimizedParticleSystem';
+import { useOptimizedAnimation } from '@/hooks/useOptimizedAnimation';
 
-const Hero = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
+const Hero = memo(() => {
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
-
+  
+  const { elementRef, isVisible } = useOptimizedAnimation({ threshold: 0.3 });
   const words = ['MERN Developer', 'Problem Solver', 'Competitive Programmer', 'Route Optimizer'];
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
 
   useEffect(() => {
     const handleTyping = () => {
@@ -47,21 +44,20 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
-      {/* Animated Background */}
-      <AnimatedBackground />
+    <section ref={elementRef} className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
+      {/* Optimized Background */}
+      <OptimizedParticleSystem particleCount={25} speed={0.8} />
       
       {/* Dynamic Background Layers */}
-      <div className="absolute inset-0 animated-bg opacity-20" />
-      <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-transparent to-background/60" />
+      <div className="absolute inset-0 animated-bg opacity-10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-background/90 via-background/50 to-background/80" />
       
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-full blur-xl animate-pulse-glow" />
-      <div className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-full blur-2xl animate-float" />
-      <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-full blur-lg animate-pulse-glow" style={{ animationDelay: '1s' }} />
+      {/* Optimized Floating Elements */}
+      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-primary/5 to-accent/5 rounded-full blur-xl animate-pulse-glow" />
+      <div className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-r from-accent/5 to-primary/5 rounded-full blur-2xl animate-float" />
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
-        <div className={`transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Welcome Badge */}
           <div className="mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 border border-border/50 backdrop-blur-sm">
@@ -153,6 +149,8 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+});
+
+Hero.displayName = 'Hero';
 
 export default Hero;

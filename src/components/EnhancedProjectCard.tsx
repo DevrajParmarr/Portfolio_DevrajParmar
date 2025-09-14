@@ -1,8 +1,9 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React, { memo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Github, ExternalLink, Star, Calendar, Code, ArrowRight, Zap } from 'lucide-react';
+import { useMouseTracker, useOptimizedAnimation } from '@/hooks/useOptimizedAnimation';
 
 interface EnhancedProjectCardProps {
   project: {
@@ -22,65 +23,44 @@ interface EnhancedProjectCardProps {
   isVisible: boolean;
 }
 
-const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
+const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = memo(({
   project,
   index,
   isVisible
 }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
-  const [tiltStyle, setTiltStyle] = useState({});
+  const { elementRef: mouseRef, position: mousePosition } = useMouseTracker();
+  const { elementRef: animationRef, isVisible: cardVisible } = useOptimizedAnimation({ 
+    delay: index * 100,
+    threshold: 0.1 
+  });
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    
-    // Subtle tilt effect
-    const tiltX = ((e.clientY - rect.top) / rect.height - 0.5) * -8;
-    const tiltY = ((e.clientX - rect.left) / rect.width - 0.5) * 8;
-    
-    setMousePosition({ x, y });
-    setTiltStyle({
-      transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(8px)`,
-    });
-  }, []);
-
-  const handleMouseEnter = useCallback(() => {
-    setIsHovered(true);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHovered(false);
-    setMousePosition({ x: 50, y: 50 });
-    setTiltStyle({
-      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)',
-    });
-  }, []);
-
+  // Simplified mouse tracking with performance optimization
+  const tiltStyle = {
+    transform: `perspective(1000px) rotateX(${((mousePosition.y - 50) / 50) * -4}deg) rotateY(${((mousePosition.x - 50) / 50) * 4}deg)`,
+    transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+  };
 
   return (
-    <div className="project-card-3d">
+    <div 
+      ref={(el) => {
+        if (mouseRef) mouseRef.current = el as HTMLElement;
+        if (animationRef) animationRef.current = el as HTMLElement;
+      }}
+      className="project-card-enhanced gpu-accelerated"
+    >
       <Card
-        ref={cardRef}
         className={`
           group relative overflow-hidden cursor-pointer
           bg-card/95 backdrop-blur-sm border border-border/40
           transition-all duration-300 ease-out
-          ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+          ${cardVisible ? 'fade-up-optimized' : 'opacity-0'}
           ${project.featured ? 'ring-1 ring-primary/20 shadow-lg shadow-primary/10' : ''}
           hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10
         `}
         style={{
-          transitionDelay: `${index * 100}ms`,
           ...tiltStyle,
+          animationDelay: `${index * 100}ms`,
         }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
       >
         {/* Subtle Background Gradient */}
         <div
@@ -92,10 +72,7 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
 
         {/* Cursor-Following Subtle Glow */}
         <div
-          className={`
-            absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-lg
-            ${isHovered ? 'opacity-100' : 'opacity-0'}
-          `}
+          className="absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-lg opacity-0 group-hover:opacity-100"
           style={{
             background: `radial-gradient(circle 120px at ${mousePosition.x}% ${mousePosition.y}%, 
               hsl(var(--primary) / 0.08) 0%, 
@@ -144,12 +121,7 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
           )}
           
           {/* Interactive Overlay */}
-          <div className={`
-            absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent
-            flex items-end justify-center pb-6 gap-3
-            transition-all duration-300 ease-out
-            ${isHovered ? 'opacity-100' : 'opacity-0'}
-          `}>
+          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent flex items-end justify-center pb-6 gap-3 transition-all duration-300 ease-out opacity-0 group-hover:opacity-100">
             <Button 
               size="sm" 
               variant="secondary"
@@ -234,6 +206,8 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
       </Card>
     </div>
   );
-};
+});
+
+EnhancedProjectCard.displayName = 'EnhancedProjectCard';
 
 export default EnhancedProjectCard;

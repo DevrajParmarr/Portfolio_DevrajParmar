@@ -1,8 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo, useMemo } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Github, ExternalLink, Code2, Sparkles } from 'lucide-react';
 import EnhancedProjectCard from './EnhancedProjectCard';
+import { useOptimizedAnimation } from '@/hooks/useOptimizedAnimation';
+import { SkeletonProjectCard } from './LoadingSkeletons';
 import aiStudyAssistant from '@/assets/ai-study-assistant.jpg';
 import campusEvents from '@/assets/campus-events.jpg';
 import blockchainVoting from '@/assets/blockchain-voting.jpg';
@@ -10,22 +12,35 @@ import chatApp from '@/assets/chat-app.jpg';
 import aslConverter from '@/assets/asl-converter-hero.jpg';
 import studyCompanion from '@/assets/study-companion-hero.jpg';
 
-const Projects = () => {
+const Projects = memo(() => {
   const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [isLoading, setIsLoading] = useState(true);
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+  
+  const { elementRef, isVisible } = useOptimizedAnimation({ threshold: 0.1 });
 
   useEffect(() => {
+    // Simulate loading time for better UX
+    const timer = setTimeout(() => setIsLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
+    
     const observers = projectRefs.current.map((ref, index) => {
       if (!ref) return null;
       
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            setVisibleProjects(prev => [...prev, index]);
+            setVisibleProjects(prev => 
+              prev.includes(index) ? prev : [...prev, index]
+            );
           }
         },
-        { threshold: 0.1 }
+        { threshold: 0.1, rootMargin: '50px' }
       );
       
       observer.observe(ref);
@@ -35,9 +50,9 @@ const Projects = () => {
     return () => {
       observers.forEach(observer => observer?.disconnect());
     };
-  }, []);
+  }, [isLoading]);
 
-  const projects = [
+  const projects = useMemo(() => [
     {
       id: 1,
       title: 'Route Optimizer',
@@ -103,19 +118,43 @@ const Projects = () => {
       year: '2024',
       category: 'Frontend'
     },
-  ];
+  ], []);
 
   const categories = ['All', 'Full Stack', 'AI/ML', 'Frontend', 'Backend', 'Web Development'];
   
-  const filteredProjects = selectedCategory === 'All' 
-    ? projects 
-    : projects.filter(project => project.category === selectedCategory);
+  const filteredProjects = useMemo(() => {
+    return selectedCategory === 'All' 
+      ? projects 
+      : projects.filter(project => project.category === selectedCategory);
+  }, [selectedCategory, projects]);
+
+  if (isLoading) {
+    return (
+      <section id="projects" className="py-20 px-4 relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <Badge className="mb-6 px-4 py-2">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Featured Work
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <span className="gradient-text">My Projects</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {Array.from({ length: 4 }, (_, i) => (
+              <SkeletonProjectCard key={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <section id="projects" className="py-20 px-4 relative">
+    <section ref={elementRef} id="projects" className="py-20 px-4 relative">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <Badge className="mb-6 px-4 py-2">
             <Sparkles className="w-4 h-4 mr-2" />
             Featured Work
@@ -178,6 +217,8 @@ const Projects = () => {
       </div>
     </section>
   );
-};
+});
+
+Projects.displayName = 'Projects';
 
 export default Projects;
