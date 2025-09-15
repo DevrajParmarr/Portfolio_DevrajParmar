@@ -497,6 +497,140 @@
   .project-card-enhanced {
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     transform-style: preserve-3d;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  /* Dynamic Card Animations */
+  @keyframes slideInUp {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 60px, 0) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes floatGentle {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes shimmerEnhanced {
+    0% {
+      transform: translateX(-100%) skewX(-15deg);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(200%) skewX(-15deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 0 20px hsl(var(--primary) / 0);
+      transform: scale(1.02);
+    }
+  }
+
+  /* Enhanced Animation Classes */
+  .animate-slideInUp {
+    animation: slideInUp 0.8s cubic-bezier(0.23, 1, 0.320, 1) both;
+  }
+
+  .animate-floatGentle {
+    animation: floatGentle 3s ease-in-out infinite;
+  }
+
+  .animate-shimmerEnhanced {
+    animation: shimmerEnhanced 1.5s ease-out;
+  }
+
+  .animate-pulseGlow {
+    animation: pulseGlow 2s infinite;
+  }
+
+  /* Performance Optimizations */
+  .transform-gpu {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Enhanced Hover Effects */
+  .project-card-enhanced:hover .tech-badge {
+    transform: translateY(-3px) scale(1.05);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .project-card-enhanced:hover .status-badge {
+    animation: floatGentle 2s ease-in-out infinite;
+  }
+
+  .project-card-enhanced:hover .card-image {
+    transform: scale(1.1) rotateZ(1deg);
+    filter: brightness(110%) contrast(105%);
+  }
+
+  /* Magnetic Card Effect */
+  .magnetic-effect {
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+
+  /* Cursor Glow Trail */
+  .cursor-glow {
+    pointer-events: none;
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.4) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: all 0.1s ease-out;
+    z-index: 9999;
+    mix-blend-mode: screen;
+  }
+
+  /* Dynamic Border Glow */
+  .border-glow {
+    position: relative;
+  }
+
+  .border-glow::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    padding: 2px;
+    background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary)));
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .border-glow:hover::before {
+    opacity: 1;
+    animation: rotateBorder 2s linear infinite;
+  }
+
+  @keyframes rotateBorder {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
   
   .project-card-enhanced:hover {
