@@ -1,13 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, Award, TrendingUp } from 'lucide-react';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 const Experience = () => {
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,56 +25,6 @@ const Experience = () => {
 
     return () => observer.disconnect();
   }, []);
-
-  // Mouse tracking for magnetic effect
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // 3D tilt effect
-  const handleMouseEnter = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
-    setHoveredCard(index);
-    const card = cardRefs.current[index];
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 10;
-    const rotateY = (centerX - x) / 10;
-
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-  };
-
-  const handleMouseMove = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
-    const card = cardRefs.current[index];
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 10;
-    const rotateY = (centerX - x) / 10;
-
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-  };
-
-  const handleMouseLeave = (index: number) => {
-    setHoveredCard(null);
-    const card = cardRefs.current[index];
-    if (!card) return;
-
-    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-  };
 
   const experiences = [
     {
@@ -217,32 +164,9 @@ const Experience = () => {
                 
                 {/* Content card */}
                 <div className={`w-5/12 ${visibleItems.includes(index) ? 'animate-slide-in-right' : 'opacity-0'}`} style={{ animationDelay: `${index * 0.2}s` }}>
-                  <Card 
-                    ref={el => cardRefs.current[index] = el}
-                    className="glass-card group relative overflow-hidden cursor-pointer transition-all duration-500 ease-out"
-                    onMouseEnter={(e) => handleMouseEnter(index, e)}
-                    onMouseMove={(e) => handleMouseMove(index, e)}
-                    onMouseLeave={() => handleMouseLeave(index)}
-                    style={{ 
-                      transformStyle: 'preserve-3d',
-                      transformOrigin: 'center center',
-                      transition: 'transform 0.1s ease-out'
-                    }}
-                  >
-                    {/* Shimmer effect */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent animate-shimmer -skew-x-12" />
-                    </div>
-                    
-                    {/* Enhanced glow effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-br from-primary/40 to-accent/40 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500 -z-10" />
-                    
-                    {/* Floating particles */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="absolute top-4 right-4 w-2 h-2 bg-primary/60 rounded-full animate-float" />
-                      <div className="absolute bottom-6 left-6 w-1 h-1 bg-accent/60 rounded-full animate-float" style={{ animationDelay: '1s' }} />
-                      <div className="absolute top-1/2 right-8 w-1.5 h-1.5 bg-primary/40 rounded-full animate-float" style={{ animationDelay: '2s' }} />
-                    </div>
+                  <Card className="glass-card hover-scale group relative overflow-hidden">
+                    {/* Card glow effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-br from-primary/30 to-accent/30 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500 -z-10" />
                     
                     <CardHeader>
                       <div className="flex justify-between items-start mb-2">

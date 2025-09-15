@@ -5,10 +5,7 @@ import { Trophy, Medal, Users, Target, Calendar, Award, Zap, Crown } from 'lucid
 
 const Achievements = () => {
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const observers = itemRefs.current.map((ref, index) => {
@@ -31,56 +28,6 @@ const Achievements = () => {
       observers.forEach(observer => observer?.disconnect());
     };
   }, []);
-
-  // Mouse tracking for magnetic effect
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // 3D tilt effect
-  const handleMouseEnter = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
-    setHoveredCard(index);
-    const card = cardRefs.current[index];
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 15;
-    const rotateY = (centerX - x) / 15;
-
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-  };
-
-  const handleMouseMove = (index: number, e: React.MouseEvent<HTMLDivElement>) => {
-    const card = cardRefs.current[index];
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 15;
-    const rotateY = (centerX - x) / 15;
-
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-  };
-
-  const handleMouseLeave = (index: number) => {
-    setHoveredCard(null);
-    const card = cardRefs.current[index];
-    if (!card) return;
-
-    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-  };
 
   const achievements = [
     {
@@ -175,40 +122,22 @@ const Achievements = () => {
                 `}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
-                <Card 
-                  ref={el => cardRefs.current[index] = el}
-                  className={`
-                    group relative overflow-hidden cursor-pointer
-                    bg-card/80 backdrop-blur-lg border ${achievement.borderColor}
-                    transition-all duration-500 ease-out
-                    hover:shadow-2xl hover:shadow-primary/20
-                    hover:border-primary/60
-                  `}
-                  onMouseEnter={(e) => handleMouseEnter(index, e)}
-                  onMouseMove={(e) => handleMouseMove(index, e)}
-                  onMouseLeave={() => handleMouseLeave(index)}
-                  style={{ 
-                    transformStyle: 'preserve-3d',
-                    transformOrigin: 'center center',
-                    transition: 'transform 0.1s ease-out'
-                  }}
-                >
+                <Card className={`
+                  group relative overflow-hidden cursor-pointer
+                  bg-card/80 backdrop-blur-lg border ${achievement.borderColor}
+                  transition-all duration-500 ease-out
+                  hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2
+                  hover:border-primary/60
+                `}>
                   {/* Animated Background */}
                   <div className={`
                     absolute inset-0 bg-gradient-to-br ${achievement.color}
                     opacity-0 group-hover:opacity-100 transition-opacity duration-500
                   `} />
 
-                  {/* Shimmer Effect */}
+                  {/* Cursor Following Effect */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent animate-shimmer -skew-x-12" />
-                  </div>
-
-                  {/* Floating particles */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="absolute top-4 right-4 w-2 h-2 bg-primary/60 rounded-full animate-float" />
-                    <div className="absolute bottom-6 left-6 w-1 h-1 bg-accent/60 rounded-full animate-float" style={{ animationDelay: '1s' }} />
-                    <div className="absolute top-1/2 right-8 w-1.5 h-1.5 bg-primary/40 rounded-full animate-float" style={{ animationDelay: '2s' }} />
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10 animate-shimmer" />
                   </div>
 
                   <CardHeader className="relative z-10 pb-4">
@@ -267,7 +196,7 @@ const Achievements = () => {
                   </CardContent>
 
                   {/* Enhanced Glow Effect */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/40 via-accent/30 to-primary/40 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-lg" />
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/30 via-accent/20 to-primary/30 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm" />
                 </Card>
               </div>
             );
