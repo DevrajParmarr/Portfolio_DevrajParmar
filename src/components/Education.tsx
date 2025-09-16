@@ -35,10 +35,10 @@ const Education = () => {
       grade: '6.96 CGPA',
       status: 'UG IV Year (Final Year)',
       highlights: [
-        'Core subjects: Data Structures, Algorithms, DBMS, Computer Networks',
+        'Core subjects: Data Structures, ML ,Algorithms, DBMS, OS, Computer Networks',
         'Specialized in Machine Learning and AI applications',
         'Active participant in technical events and programming contests',
-        'Leading multiple academic projects in full-stack development'
+        'Leading multiple academic projects in full-stack development - ML Engineer'
       ],
       achievements: [
         'Consistent academic performance',
@@ -95,13 +95,13 @@ const Education = () => {
     },
     {
       title: 'CodeChef Rating',
-      description: '1500+ Competitive Programming',
+      description: '1680+ Competitive Programming',
       icon: TrendingUp,
       color: 'text-green-400'
     },
     {
       title: 'Problem Solving',
-      description: '350+ DSA Problems Solved',
+      description: '550+ DSA Problems Solved',
       icon: Star,
       color: 'text-blue-400'
     }
@@ -215,11 +215,11 @@ const Education = () => {
                           <h4 className="font-semibold text-accent mb-3">Key Achievements:</h4>
                           <div className="flex flex-wrap gap-2">
                             {edu.achievements.map((achievement, aIndex) => (
-                              <Badge 
+                              <Badge
                                 key={aIndex}
-                                variant="secondary" 
+                                variant="secondary"
                                 className="glass-card hover-scale animate-bounce-in"
-                                style={{ '--stagger-delay': aIndex } as any}
+                                style={{ '--stagger-delay': aIndex } as React.CSSProperties}
                               >
                                 {achievement}
                               </Badge>

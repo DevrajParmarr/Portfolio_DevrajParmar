@@ -50,8 +50,8 @@ const AdvancedSkills: React.FC = () => {
       title: 'Competitive Programming',
       color: 'from-orange-500 to-red-500',
       skills: [
-        { name: 'LeetCode (350+ problems)', level: 85, description: 'Algorithm optimization' },
-        { name: 'CodeChef (1500+ rating)', level: 80, description: 'Contest participation' },
+        { name: 'LeetCode (550+ problems)', level: 85, description: 'Algorithm optimization' },
+        { name: 'CodeChef (1680+ rating)', level: 80, description: 'Contest participation' },
         { name: 'GeeksforGeeks', level: 85, description: 'Technical interviews' },
         { name: 'Problem Solving', level: 88, description: 'Analytical thinking' },
       ],

@@ -220,11 +220,11 @@ const Experience = () => {
                           <h4 className="font-semibold mb-2 text-accent">Technologies:</h4>
                           <div className="flex flex-wrap gap-2">
                             {exp.skills.map((skill, skillIndex) => (
-                              <Badge 
-                                key={skill} 
-                                variant="secondary" 
+                              <Badge
+                                key={skill}
+                                variant="secondary"
                                 className="glass-card hover-scale animate-bounce-in"
-                                style={{ '--stagger-delay': skillIndex } as any}
+                                style={{ '--stagger-delay': skillIndex } as React.CSSProperties}
                               >
                                 {skill}
                               </Badge>

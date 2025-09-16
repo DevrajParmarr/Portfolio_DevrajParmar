@@ -11,7 +11,7 @@ export interface MotionTokens {
   easings: Record<string, string>;
   durations: Record<string, number>;
   stagger: Record<string, number>;
-  physics: Record<string, any>;
+  physics: Record<string, number>;
 }
 
 // Ultimate Motion Design System

@@ -38,8 +38,13 @@ export const motionConfig = {
 };
 
 // Advanced Animation Utilities
+interface AnimationConfig {
+  duration: number;
+  easing: string;
+}
+
 export class MotionSystem {
-  static createSpringAnimation(element: HTMLElement, config: any) {
+  static createSpringAnimation(element: HTMLElement, config: AnimationConfig) {
     element.style.transition = `all ${config.duration}ms ${config.easing}`;
   }
   

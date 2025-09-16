@@ -3,12 +3,12 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Github, ExternalLink, Code2, Sparkles } from 'lucide-react';
 import EnhancedProjectCard from './EnhancedProjectCard';
-import aiStudyAssistant from '@/assets/ai-study-assistant.jpg';
-import campusEvents from '@/assets/campus-events.jpg';
-import blockchainVoting from '@/assets/blockchain-voting.jpg';
+import routeOptimizerImage from '@/assets/routeOptimizer.png';
+import dlabourImage from '@/assets/dlabourchowkimage.png';
+import judgeMyCodeImage from '@/assets/JudgeMyCode.png';
 import chatApp from '@/assets/chat-app.jpg';
 import aslConverter from '@/assets/asl-converter-hero.jpg';
-import studyCompanion from '@/assets/study-companion-hero.jpg';
+import studyCompanion from '@/assets/missionControl.png';
 
 const Projects = () => {
   const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
@@ -44,10 +44,10 @@ const Projects = () => {
       id: 1,
       title: 'Route Optimizer',
       description: 'Full-stack web application solving the Heterogeneous Fleet Vehicle Routing Problem (HFVRP) for 5-100 destinations using 2-50 vehicles. Implements multiple routing algorithms with interactive map interface.',
-      image: aiStudyAssistant,
+      image: routeOptimizerImage,
       tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Leaflet.js', 'OpenStreetMap API'],
-      github: 'https://github.com',
-      demo: 'https://demo.com',
+      github: 'https://github.com/DevrajParmarr/Major_Project_CSE',
+      demo: 'https://complexrouteoptimizer.netlify.app/',
       featured: true,
       status: 'Completed',
       year: '2025',
@@ -55,25 +55,25 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: 'MERN Stack Online Judge',
-      description: 'Competitive programming platform with secure user authentication using JWT, custom compiler for multiple languages, and responsive frontend with problem listing and filtering.',
-      image: campusEvents,
-      tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT'],
-      github: 'https://github.com',
-      demo: 'https://demo.com',
+      title: 'Judge My Code ',
+      description: 'Competitive programming platform (Like LeetCode)  with secure user authentication using JWT, custom compiler for multiple languages, and responsive frontend with problem listing and filtering.',
+      image: dlabourImage,
+      tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT','Docker','AWS'],
+      github: 'https://github.com/DevrajParmarr',
+      demo: 'https://online-judge-mern.vercel.app/',
       featured: true,
       status: 'In Progress',
-      year: '2024',
+      year: '2024-25',
       category: 'Backend'
     },
     {
       id: 3,
       title: 'Digital Labour Chowk',
-      description: 'Platform connecting laborers and clients, facilitating real-time job opportunities. Features user registration, job posting, and application management with secure database handling.',
-      image: blockchainVoting,
-      tech: ['PHP', 'SQL', 'HTML', 'CSS', 'JavaScript'],
-      github: 'https://github.com',
-      demo: 'https://demo.com',
+      description: 'Platform connecting laborers and clients,with advance admin panel ,facilitating real-time job opportunities. Features user registration, job posting, and application management with secure database handling.',
+      image: judgeMyCodeImage,
+      tech: ['PHP', 'SQL','Chart.js', 'HTML', 'CSS', 'JavaScript'],
+      github: 'https://github.com/DevrajParmarr/D_Labour_Chowk',
+      demo: 'https://d-labour-chowk-vg79.onrender.com/Shared/index.html',
       featured: false,
       status: 'Completed',
       year: '2024',
@@ -85,8 +85,8 @@ const Projects = () => {
       description: 'AI/ML project converting ASL from live video to text in real time using OpenCV for hand detection and a CNN classifier. Includes confidence overlay and streaming pipeline.',
       image: aslConverter,
       tech: ['Python', 'OpenCV', 'TensorFlow/Keras', 'CNN'],
-      github: 'https://github.com',
-      demo: 'https://demo.com',
+      github: 'https://github.com/Devrajparmarr',
+      demo: '',
       featured: true,
       status: 'Completed',
       year: '2024',
@@ -94,12 +94,12 @@ const Projects = () => {
     },
     {
       id: 5,
-      title: 'CSE Study Companion',
+      title: 'Placement Planner Tool',
       description: 'Upgraded tool for CSE students: tasks with focus timer (Pomodoro), daily quiz, gamification (XP/levels), and daily insights. Built with a sleek responsive UI.',
       image: studyCompanion,
       tech: ['React', 'HTML', 'CSS', 'JavaScript'],
-      github: 'https://github.com',
-      demo: 'https://demo.com',
+      github: 'https://github.com/DevrajParmarr/Mission-Control---A-Gamified-Habit-Tracker',
+      demo: 'https://deciplineyourtasknow.netlify.app/',
       featured: false,
       status: 'Completed',
       year: '2024',

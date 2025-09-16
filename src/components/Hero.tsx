@@ -10,7 +10,7 @@ const Hero = memo(() => {
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
   
-  const words = ['MERN Developer', 'Problem Solver', 'Competitive Programmer', 'Route Optimizer'];
+  const words = ['MERN Developer', 'Next-Js Developer','Problem Solver', 'Competitive Programmer', 'AI-ML Expert'];
 
   useEffect(() => {
     setIsLoaded(true);
