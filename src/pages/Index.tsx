@@ -29,6 +29,10 @@ const Index = () => {
         <section id="about" className="py-20">
           <Profile />
         </section>
+
+        <section id="skills" className="py-20">
+          <Skills />
+        </section>
         
         <section id="education" className="py-20">
           <Education />
@@ -46,9 +50,6 @@ const Index = () => {
           <Achievements />
         </section>
         
-        <section id="skills" className="py-20">
-          <Skills />
-        </section>
         
         <section id="contact" className="py-20">
           <Contact />

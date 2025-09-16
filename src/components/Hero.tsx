@@ -96,7 +96,7 @@ const Hero = memo(() => {
           <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
             Final year <span className="text-foreground font-medium">Computer Engineering</span> student at{' '}
             <span className="text-foreground font-medium">SGSITS, Indore</span>.<br />
-            <span className="text-sm">JEE AIR 40,236 • CodeChef 1680+ Rating • 450+ DSA Problems Solved</span>
+            <span className="text-sm">Oracle Certified Eng • CodeChef 1680+ Rating • 450+ DSA Problems Solved</span>
           </p>
         </div>
 
@@ -139,9 +139,9 @@ const Hero = memo(() => {
         {/* Social Links */}
         <div className="flex justify-center items-center gap-4">
           {[
-            { icon: Github, href: "https://github.com", label: "GitHub" },
-            { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-            { icon: Mail, href: "mailto:devraj@example.com", label: "Email" }
+            { icon: Github, href: "https://github.com/DevrajParmarr", label: "GitHub" },
+            { icon: Linkedin, href: "https://www.linkedin.com/in/devraj-parmar-459363187", label: "LinkedIn" },
+            { icon: Mail, href: "mailto:devrajparmar232@gmail.com", label: "Email" }
           ].map(({ icon: Icon, href, label }, index) => (
             <Button 
               key={index} 

@@ -1,17 +1,19 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { GraduationCap, Award, Calendar, MapPin, Star, TrendingUp } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { GraduationCap, Award, Calendar, MapPin, Star, TrendingUp, ChevronDown, ChevronUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const Education = () => {
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
+  const [showAllEducation, setShowAllEducation] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = parseInt(entry.target.getAttribute('data-index') || '0');
+            const index = parseInt(entry.target.getAttribute('data-education-index') || '0');
             setVisibleCards(prev => [...prev, index]);
           }
         });
@@ -152,7 +154,7 @@ const Education = () => {
 
         {/* Education Cards in Symmetric Layout */}
         <div className="space-y-8">
-          {education.map((edu, index) => (
+          {education.slice(0, showAllEducation ? education.length : 1).map((edu, index) => (
             <div
               key={index}
               data-education-index={index}
@@ -161,7 +163,7 @@ const Education = () => {
               <Card className={`w-full max-w-4xl glass-card group relative overflow-hidden tilt-on-hover ${
                 visibleCards.includes(index) ? 'animate-card-entry' : 'opacity-0'
               }`} style={{ animationDelay: `${index * 0.3}s` }}>
-                
+
                 {/* Symmetric glow effects */}
                 <div className="absolute -inset-1 bg-gradient-to-br from-primary/20 via-accent/20 to-primary/20 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-all duration-700 -z-10" />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
@@ -183,12 +185,12 @@ const Education = () => {
                           {edu.location}
                         </div>
                       </div>
-                      
+
                       <CardTitle className="text-2xl md:text-3xl mb-2 group-hover:text-primary transition-colors animate-text-glow">
                         {edu.degree}
                       </CardTitle>
-                      
-                      <CardDescription className="text-lg font-medium text-accent">
+
+                      <CardDescription className="text-lg font-semibold text-foreground">
                         {edu.institution}
                       </CardDescription>
                     </CardHeader>
@@ -199,7 +201,7 @@ const Education = () => {
                           <h4 className="font-semibold text-primary mb-3">Academic Highlights:</h4>
                           <ul className="space-y-2">
                             {edu.highlights.map((highlight, hIndex) => (
-                              <li 
+                              <li
                                 key={hIndex}
                                 className="flex items-start gap-3 text-sm animate-slide-in-right"
                                 style={{ animationDelay: `${(index * 0.3) + (hIndex * 0.1)}s` }}
@@ -248,6 +250,35 @@ const Education = () => {
             </div>
           ))}
         </div>
+
+        {/* Explore More Button */}
+        {!showAllEducation && (
+          <div className="text-center mt-12">
+            <Button
+              onClick={() => setShowAllEducation(true)}
+              className="group btn-enhanced shadow-lg relative overflow-hidden bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 border-0"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity animate-shimmer" />
+              <GraduationCap className="w-5 h-5 mr-2 group-hover:animate-bounce relative z-10" />
+              <span className="relative z-10">Explore More About Education</span>
+              <ChevronDown className="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform relative z-10" />
+            </Button>
+          </div>
+        )}
+
+        {/* Show Less Button */}
+        {showAllEducation && (
+          <div className="text-center mt-12">
+            <Button
+              onClick={() => setShowAllEducation(false)}
+              variant="outline"
+              className="btn-enhanced"
+            >
+              <ChevronUp className="w-5 h-5 mr-2" />
+              Show Less
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
