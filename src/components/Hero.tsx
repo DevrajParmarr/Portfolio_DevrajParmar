@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowDown, Download, Github, Linkedin, Mail } from 'lucide-react';
 import { useEffect, useState, memo } from 'react';
 import AnimatedBackground from './AnimatedBackground';
+import resumePDF from '@/assets/Devraj parmar Resume.pdf';
 
 const Hero = memo(() => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -121,13 +122,13 @@ const Hero = memo(() => {
               <Mail className="w-5 h-5 mr-2" />
               Contact
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              variant="outline"
+              size="lg"
               className="btn-enhanced"
               asChild
             >
-              <a href="/resume.pdf" download>
+              <a href={resumePDF} download="Devraj_Parmar_Resume.pdf">
                 <Download className="w-5 h-5 mr-2" />
                 Resume
               </a>
