@@ -28,30 +28,7 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
   isVisible
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
-  const [magneticOffset, setMagneticOffset] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    
-    // Magnetic effect - stronger pull when close to center
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const deltaX = (e.clientX - centerX) / rect.width;
-    const deltaY = (e.clientY - centerY) / rect.height;
-    
-    setMousePosition({ x, y });
-    setMagneticOffset({ 
-      x: deltaX * 8, // Magnetic strength
-      y: deltaY * 8 
-    });
-  }, []);
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true);
@@ -59,18 +36,7 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
 
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false);
-    setMousePosition({ x: 50, y: 50 });
-    setMagneticOffset({ x: 0, y: 0 });
   }, []);
-
-  const dynamicTransform = {
-    transform: isHovered 
-      ? `perspective(1200px) rotateX(${((mousePosition.y - 50) / 50) * -8}deg) rotateY(${((mousePosition.x - 50) / 50) * 8}deg) translateZ(20px) scale(1.02) translate3d(${magneticOffset.x}px, ${magneticOffset.y}px, 0)` 
-      : `perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1) translate3d(0px, 0px, 0)`,
-    transition: isHovered 
-      ? 'transform 0.2s cubic-bezier(0.23, 1, 0.320, 1)' 
-      : 'transform 0.6s cubic-bezier(0.23, 1, 0.320, 1)'
-  };
 
   // Entrance animation with stagger
   useEffect(() => {
@@ -81,10 +47,9 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
   }, [isVisible, index]);
 
   return (
-    <div 
+    <div
       ref={cardRef}
       className="project-card-enhanced relative transform-gpu will-change-transform"
-      onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -92,53 +57,23 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
         className={`
           group relative overflow-hidden cursor-pointer
           bg-card/95 backdrop-blur-sm border border-border/40
-          transition-all duration-300 ease-out
+          transition-all duration-500 ease-out
           ${project.featured ? 'ring-1 ring-primary/20' : ''}
-          hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20
-          ${isHovered ? 'shadow-2xl shadow-primary/30 ring-2 ring-primary/30' : ''}
+          hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2
+          ${isHovered ? 'shadow-xl shadow-primary/15 ring-1 ring-primary/20 -translate-y-2' : ''}
         `}
-        style={dynamicTransform}
       >
-        {/* Dynamic Background Gradient */}
-        <div className={`absolute inset-0 transition-all duration-500 bg-gradient-to-br from-primary/5 via-accent/3 to-secondary/5 ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`} />
+        {/* Subtle Background Gradient */}
+        <div className={`absolute inset-0 transition-all duration-700 bg-gradient-to-br from-primary/3 via-transparent to-accent/3 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
 
-        {/* Enhanced Cursor-Following Glow */}
-        <div
-          ref={glowRef}
-          className={`absolute inset-0 pointer-events-none transition-all duration-200 rounded-lg ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-          style={{
-            background: `radial-gradient(circle 200px at ${mousePosition.x}% ${mousePosition.y}%, 
-              hsl(var(--primary) / ${isHovered ? 0.15 : 0.05}) 0%, 
-              hsl(var(--primary) / 0.05) 40%,
-              transparent 70%)`,
-            transform: `scale(${isHovered ? 1.1 : 1})`,
-          }}
-        />
-
-        {/* Dynamic Shimmer with Multiple Layers */}
-        <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent transition-all duration-1000 ${isHovered ? 'translate-x-full opacity-100' : '-translate-x-full opacity-70'}`} />
-        
-        {/* Floating Particles Effect */}
-        <div className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-primary/40 rounded-full animate-pulse"
-              style={{
-                left: `${20 + (i * 15)}%`,
-                top: `${30 + (i * 10)}%`,
-                animationDelay: `${i * 200}ms`,
-                animationDuration: '2s',
-              }}
-            />
-          ))}
-        </div>
+        {/* Professional Border Glow */}
+        <div className={`absolute inset-0 rounded-lg transition-all duration-500 ${isHovered ? 'ring-1 ring-primary/20' : 'ring-0'}`} />
 
         <div className="relative h-52 overflow-hidden">
           <img
             src={project.image}
             alt={project.title}
-            className={`w-full h-full object-cover transition-all duration-500 ${isHovered ? 'scale-110 brightness-110' : 'scale-100 brightness-100'}`}
+            className={`w-full h-full object-cover transition-all duration-700 ${isHovered ? 'scale-105 brightness-105' : 'scale-100 brightness-100'}`}
             loading="lazy"
           />
           
@@ -171,13 +106,12 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
             </div>
           )}
           
-          {/* Interactive Overlay with Enhanced Animations */}
-          <div className={`absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent flex items-end justify-center pb-6 gap-3 transition-all duration-500 ease-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <Button 
-              size="sm" 
+          {/* Interactive Overlay */}
+          <div className={`absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent flex items-end justify-center pb-6 gap-3 transition-all duration-500 ease-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+            <Button
+              size="sm"
               variant="secondary"
-              className={`shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 ${isHovered ? 'animate-slideInUp' : ''}`}
-              style={{ animationDelay: '100ms' }}
+              className="shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm"
               asChild
             >
               <a href={project.github} target="_blank" rel="noopener noreferrer">
@@ -185,11 +119,10 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
                 Code
               </a>
             </Button>
-            
-            <Button 
-              size="sm" 
-              className={`shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 ${isHovered ? 'animate-slideInUp' : ''}`}
-              style={{ animationDelay: '200ms' }}
+
+            <Button
+              size="sm"
+              className="shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm"
               asChild
             >
               <a href={project.demo} target="_blank" rel="noopener noreferrer">
@@ -215,7 +148,7 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
             )}
           </div>
           
-          <CardTitle className={`text-xl font-bold transition-all duration-300 ${isHovered ? 'text-primary scale-105' : 'text-foreground scale-100'}`}>
+          <CardTitle className={`text-xl font-bold transition-all duration-500 ${isHovered ? 'text-primary' : 'text-foreground'}`}>
             {project.title}
           </CardTitle>
         </CardHeader>
@@ -243,20 +176,20 @@ const EnhancedProjectCard: React.FC<EnhancedProjectCardProps> = ({
             )}
           </div>
 
-          {/* Enhanced Action Button */}
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className={`w-full transition-all duration-300 ${isHovered ? 'bg-primary/10 text-primary scale-105 shadow-md' : 'hover:bg-primary/5 hover:text-primary'}`}
+          {/* Action Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className={`w-full transition-all duration-500 ${isHovered ? 'bg-primary/10 text-primary shadow-sm' : 'hover:bg-primary/5 hover:text-primary'}`}
           >
-            <Sparkles className={`w-4 h-4 mr-2 transition-all duration-300 ${isHovered ? 'rotate-12 scale-110' : 'rotate-0 scale-100'}`} />
+            <Sparkles className="w-4 h-4 mr-2" />
             View Details
-            <ArrowRight className={`w-4 h-4 ml-2 transition-all duration-300 ${isHovered ? 'translate-x-2 scale-110' : 'translate-x-0 scale-100'}`} />
+            <ArrowRight className={`w-4 h-4 ml-2 transition-all duration-500 ${isHovered ? 'translate-x-1' : 'translate-x-0'}`} />
           </Button>
         </CardContent>
 
-        {/* Dynamic border highlight with pulse effect */}
-        <div className={`absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent/10 to-primary/20 rounded-lg transition-all duration-500 -z-10 ${isHovered ? 'opacity-100 scale-105 animate-pulse' : 'opacity-0 scale-100'}`} />
+        {/* Subtle border highlight */}
+        <div className={`absolute inset-0 rounded-lg transition-all duration-500 pointer-events-none ${isHovered ? 'ring-1 ring-primary/10' : 'ring-0'}`} />
       </Card>
     </div>
   );
