@@ -685,3 +685,123 @@
     transform: translateZ(0);
   }
 }
+
+/* ===== 3D Resume Card ===== */
+.resume3d-stage {
+  perspective: 1400px;
+  perspective-origin: 50% 40%;
+  max-width: 60rem;
+  padding: 2.5rem 0;
+}
+
+.resume3d-card {
+  position: relative;
+  width: 100%;
+  min-height: 34rem;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(calc(var(--ry, 0deg))) translateZ(0);
+  transition: transform 600ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  opacity: 0;
+}
+
+.resume3d-card.is-in {
+  opacity: 1;
+  animation: resume3dIn 1s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both;
+}
+
+.resume3d-card.is-flipped {
+  transform: rotateX(var(--rx, 0deg)) rotateY(calc(var(--ry, 0deg) + 180deg));
+}
+
+@keyframes resume3dIn {
+  from { opacity: 0; transform: rotateX(24deg) translateY(60px) scale(0.94); }
+  to   { opacity: 1; transform: rotateX(0deg) translateY(0) scale(1); }
+}
+
+.resume3d-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -30px hsl(var(--primary) / 0.45);
+}
+
+.resume3d-back { transform: rotateY(180deg); }
+
+.resume3d-face::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-glow);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.resume3d-sheen {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    hsl(var(--primary) / 0.22),
+    transparent 45%
+  );
+  transition: background 120ms linear;
+}
+
+.resume3d-shadow {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -0.5rem;
+  height: 3rem;
+  filter: blur(28px);
+  background: hsl(var(--primary) / 0.28);
+  border-radius: 50%;
+  transform: translateZ(-120px);
+}
+
+/* Orbiting tech ring */
+.resume3d-orbit {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  animation: resume3dSpin 26s linear infinite;
+}
+
+.resume3d-orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  border-radius: 9999px;
+  color: hsl(var(--foreground) / 0.7);
+  background: hsl(var(--card) / 0.6);
+  border: 1px solid hsl(var(--border) / 0.6);
+  backdrop-filter: blur(6px);
+  transform:
+    rotateY(calc(var(--i) * (360deg / var(--total))))
+    translateZ(28rem)
+    translate(-50%, -50%);
+}
+
+@keyframes resume3dSpin {
+  from { transform: rotateY(0deg) rotateX(8deg); }
+  to   { transform: rotateY(360deg) rotateX(8deg); }
+}
+
+@media (max-width: 1024px) {
+  .resume3d-orbit { display: none; }
+  .resume3d-card { min-height: 40rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resume3d-orbit { animation: none; }
+}
