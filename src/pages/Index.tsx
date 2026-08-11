@@ -6,6 +6,7 @@ import Experience from '@/components/Experience';
 import Projects from '@/components/Projects';
 import Achievements from '@/components/Achievements';
 import Skills from '@/components/Skills';
+import Resume3D from '@/components/Resume3D';
 import Contact from '@/components/Contact';
 import MouseGlow from '@/components/MouseGlow';
 const Index = () => {
@@ -28,6 +29,10 @@ const Index = () => {
         
         <section id="about" className="py-20">
           <Profile />
+        </section>
+
+        <section id="resume" className="py-20">
+          <Resume3D />
         </section>
 
         <section id="skills" className="py-20">
