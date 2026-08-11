@@ -731,6 +731,16 @@
 
 .resume3d-back { transform: rotateY(180deg); }
 
+.resume3d-face {
+  transition: opacity 250ms ease 150ms;
+}
+
+.resume3d-card.is-flipped .resume3d-front,
+.resume3d-card:not(.is-flipped) .resume3d-back {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .resume3d-face::before {
   content: '';
   position: absolute;
@@ -767,9 +777,12 @@
 /* Orbiting tech ring */
 .resume3d-orbit {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
   z-index: 0;
-  opacity: 0.75;
+  opacity: 0.7;
   transform-style: preserve-3d;
   pointer-events: none;
   animation: resume3dSpin 26s linear infinite;
@@ -791,8 +804,7 @@
   backdrop-filter: blur(6px);
   transform:
     rotateY(calc(var(--i) * (360deg / var(--total))))
-    translateZ(19rem)
-    translate(-50%, -50%);
+    translateZ(17rem);
 }
 
 @keyframes resume3dSpin {
