@@ -70,7 +70,7 @@ const Resume3D = () => {
   }, []);
 
   return (
-    <section id="resume" className="px-4 relative">
+    <section className="px-4 relative">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <Badge variant="secondary" className="mb-4 gap-1">
