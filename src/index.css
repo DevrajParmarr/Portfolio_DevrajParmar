@@ -804,7 +804,7 @@
   backdrop-filter: blur(6px);
   transform:
     rotateY(calc(var(--i) * (360deg / var(--total))))
-    translateZ(17rem);
+    translateZ(25rem);
 }
 
 @keyframes resume3dSpin {
