@@ -40,7 +40,7 @@ export const smoothScrollTo = (elementId: string) => {
 
 // Throttle function for performance
 export const throttle = <T extends (...args: unknown[]) => unknown>(func: T, delay: number) => {
-  let timeoutId: NodeJS.Timeout | null = null;
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
   let lastExecTime = 0;
 
   return function (this: unknown, ...args: Parameters<T>) {
