@@ -696,6 +696,7 @@
 
 .resume3d-card {
   position: relative;
+  z-index: 1;
   width: 100%;
   min-height: 34rem;
   transform-style: preserve-3d;
@@ -767,6 +768,8 @@
 .resume3d-orbit {
   position: absolute;
   inset: 0;
+  z-index: 0;
+  opacity: 0.75;
   transform-style: preserve-3d;
   pointer-events: none;
   animation: resume3dSpin 26s linear infinite;
@@ -788,7 +791,7 @@
   backdrop-filter: blur(6px);
   transform:
     rotateY(calc(var(--i) * (360deg / var(--total))))
-    translateZ(28rem)
+    translateZ(19rem)
     translate(-50%, -50%);
 }
 
